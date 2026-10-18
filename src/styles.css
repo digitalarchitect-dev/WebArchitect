@@ -1,0 +1,335 @@
+@import 'tailwindcss';
+
+@theme inline {
+  --color-bg: var(--c-bg);
+  --color-surface: var(--c-surface);
+  --color-surface-2: var(--c-surface-2);
+  --color-text: var(--c-text);
+  --color-muted: var(--c-muted);
+  --color-border: var(--c-border);
+  --color-accent: var(--c-accent);
+  --color-accent-ink: var(--c-accent-ink);
+}
+
+:root {
+  --c-bg: #09090b;
+  --c-surface: #18181b;
+  --c-surface-2: #27272a;
+  --c-text: #fafafa;
+  --c-muted: #a1a1aa;
+  --c-border: #3f3f46;
+  --c-accent: #a78bfa;
+  --c-accent-ink: #0c0a1f;
+}
+
+.theme-portfolio {
+  --c-bg: #1a0d07;
+  --c-surface: #27130b;
+  --c-surface-2: #351b0d;
+  --c-text: #fff7ed;
+  --c-muted: #c4a895;
+  --c-border: #5b301b;
+  --c-accent: #fb923c;
+  --c-accent-ink: #2a1205;
+}
+
+/* Визуальные темы демо-проектов. Каждое демо применяет свой класс к корню. */
+.theme-autohub {
+  --c-bg: #0b0d10;
+  --c-surface: #14181e;
+  --c-surface-2: #1c2129;
+  --c-text: #eef1f5;
+  --c-muted: #9aa4b2;
+  --c-border: #2a313b;
+  --c-accent: #f5a524;
+  --c-accent-ink: #1a1204;
+}
+
+.theme-techbox {
+  --c-bg: #f3f5f8;
+  --c-surface: #ffffff;
+  --c-surface-2: #e8edf3;
+  --c-text: #0f172a;
+  --c-muted: #475569;
+  --c-border: #d3dae4;
+  --c-accent: #0369a1;
+  --c-accent-ink: #ffffff;
+}
+
+/* Тёмная тема Techbox: графитовые поверхности, акцент остаётся синим. */
+.theme-techbox-dark {
+  --c-bg: #0f141a;
+  --c-surface: #171d26;
+  --c-surface-2: #222b36;
+  --c-text: #eef2f7;
+  --c-muted: #98a5b6;
+  --c-border: #2d3743;
+  --c-accent: #38bdf8;
+  --c-accent-ink: #06283d;
+}
+
+.theme-skillio {
+  --c-bg: #fff8f1;
+  --c-surface: #ffffff;
+  --c-surface-2: #fdeedd;
+  --c-text: #1c1917;
+  --c-muted: #57534e;
+  --c-border: #f0d9bf;
+  --c-accent: #a78bfa;
+  --c-accent-ink: #1e1b4b;
+}
+
+.theme-skillio-dark {
+  --c-bg: #0d0b12;
+  --c-surface: #17131f;
+  --c-surface-2: #231b2d;
+  --c-text: #f7f1ff;
+  --c-muted: #a89bb5;
+  --c-border: #3a2d49;
+  --c-accent: #a78bfa;
+  --c-accent-ink: #1e1b4b;
+  color-scheme: dark;
+}
+
+.skillio-hero-glow {
+  background: radial-gradient(circle at 78% 38%, rgba(124, 58, 237, 0.14), transparent 25%), radial-gradient(circle at 18% 82%, rgba(236, 72, 153, 0.12), transparent 34%), linear-gradient(135deg, #fff8f1 0%, #fdeedd 65%);
+}
+
+.skillio-hero-grid {
+  background-image: linear-gradient(rgba(124, 58, 237, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(124, 58, 237, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.theme-skillio-dark .skillio-hero-glow {
+  background: radial-gradient(circle at 78% 38%, rgba(167, 139, 250, 0.2), transparent 25%), radial-gradient(circle at 18% 82%, rgba(59, 130, 246, 0.16), transparent 34%), linear-gradient(135deg, #17131f 0%, #0d0b12 65%);
+}
+
+.theme-skillio-dark .skillio-hero-grid {
+  background-image: linear-gradient(rgba(167, 139, 250, 0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(167, 139, 250, 0.055) 1px, transparent 1px);
+}
+
+.theme-skillio-dark .bg-emerald-100 {
+  background-color: rgba(16, 185, 129, 0.18);
+}
+
+.theme-skillio-dark .text-emerald-700 {
+  color: #6ee7b7;
+}
+
+.theme-skillio-dark .bg-emerald-50 {
+  background-color: rgba(16, 185, 129, 0.14);
+}
+
+.theme-skillio-dark .text-emerald-800 {
+  color: #a7f3d0;
+}
+
+.theme-skillio-dark .text-stone-800 {
+  color: #1c1917;
+}
+
+.compare-diff {
+  background-color: #fef3c7;
+}
+html:not(.theme-techbox) .compare-diff {
+  background-color: #262f3b;
+}
+html {
+  color-scheme: dark;
+}
+
+.theme-techbox,
+.theme-skillio {
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  background: var(--c-bg, #09090b);
+  color: var(--c-text, #fafafa);
+  font-family: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.theme-portfolio .portfolio-grid {
+  background-image: linear-gradient(rgba(251, 146, 60, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(251, 146, 60, 0.055) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black, transparent 78%);
+}
+
+.theme-portfolio .portfolio-glow {
+  background: radial-gradient(circle at 68% 18%, rgba(251, 146, 60, 0.18), transparent 34%),
+    radial-gradient(circle at 10% 0%, rgba(234, 88, 12, 0.2), transparent 28%);
+}
+
+.theme-portfolio .project-cover {
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.theme-portfolio .project-cover::before,
+.theme-portfolio .project-cover::after {
+  position: absolute;
+  content: '';
+  pointer-events: none;
+}
+
+.theme-portfolio .project-cover > span {
+  z-index: 1;
+}
+
+.theme-portfolio .cover-autohub {
+  background: radial-gradient(circle at 78% 28%, rgba(251, 146, 60, 0.6), transparent 28%), linear-gradient(135deg, #3b1b0d, #1b0e08 70%);
+}
+
+.theme-portfolio .cover-autohub::before {
+  right: -10%;
+  bottom: -58%;
+  width: 75%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(251, 146, 60, 0.45);
+  border-radius: 999px;
+  box-shadow: 0 0 0 28px rgba(251, 146, 60, 0.06), 0 0 0 56px rgba(251, 146, 60, 0.04);
+}
+
+.theme-portfolio .cover-autohub::after {
+  inset: 20% 12% 18%;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 45% 55% 30% 70%;
+  transform: rotate(-12deg);
+}
+
+.theme-portfolio .cover-techbox {
+  background: radial-gradient(circle at 70% 20%, rgba(249, 115, 22, 0.5), transparent 30%), linear-gradient(135deg, #43200e, #211009 72%);
+}
+
+.theme-portfolio .cover-techbox::before {
+  top: 24%;
+  right: 16%;
+  width: 30%;
+  height: 52%;
+  border: 1px solid rgba(253, 186, 116, 0.65);
+  border-radius: 12px;
+  box-shadow: -34px 20px 0 -8px rgba(249, 115, 22, 0.18), 0 0 30px rgba(249, 115, 22, 0.18);
+  transform: rotate(12deg);
+}
+
+.theme-portfolio .cover-techbox::after {
+  inset: 0;
+  opacity: 0.32;
+  background-image: linear-gradient(rgba(253, 186, 116, 0.28) 1px, transparent 1px), linear-gradient(90deg, rgba(253, 186, 116, 0.28) 1px, transparent 1px);
+  background-size: 24px 24px;
+  mask-image: linear-gradient(135deg, transparent 15%, black 70%);
+}
+
+.theme-portfolio .cover-skillio {
+  background: radial-gradient(circle at 75% 25%, rgba(251, 146, 60, 0.55), transparent 28%), linear-gradient(135deg, #3a1a25, #32130b 78%);
+}
+
+.theme-portfolio .cover-skillio::before {
+  top: 12%;
+  right: 16%;
+  width: 28%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(251, 146, 60, 0.6);
+  border-radius: 42% 58% 65% 35%;
+  transform: rotate(24deg);
+  box-shadow: 0 0 45px rgba(251, 146, 60, 0.22);
+}
+
+.theme-portfolio .cover-skillio::after {
+  left: 12%;
+  bottom: 18%;
+  width: 45%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 -12px 0 rgba(255, 255, 255, 0.18), 0 12px 0 rgba(255, 255, 255, 0.18);
+  transform: rotate(-18deg);
+}
+
+.theme-portfolio .cover-tilda-auto,
+.theme-portfolio .cover-tilda-vanlove {
+  background: linear-gradient(135deg, #2b160c, #7c2d12 58%, #fb923c);
+}
+
+.theme-portfolio .cover-tilda-auto::before {
+  right: -8%;
+  bottom: -44%;
+  width: 65%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 237, 213, 0.55);
+  border-radius: 999px;
+  box-shadow: 0 0 0 22px rgba(255, 237, 213, 0.1), 0 0 0 44px rgba(255, 237, 213, 0.06);
+}
+
+.theme-portfolio .cover-tilda-vanlove {
+  background: linear-gradient(135deg, #431407, #9a3412 52%, #fdba74);
+}
+
+.theme-portfolio .cover-tilda-vanlove::before {
+  top: 14%;
+  right: 12%;
+  width: 28%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(255, 247, 237, 0.7);
+  border-radius: 50%;
+  box-shadow: 0 0 0 14px rgba(255, 247, 237, 0.09);
+}
+
+.theme-portfolio .project-art {
+  position: absolute;
+  z-index: 1;
+  right: 9%;
+  top: 12%;
+  width: 48%;
+  height: 70%;
+  color: #fed7aa;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.28));
+  opacity: 0.9;
+}
+
+.theme-portfolio .project-cover:has(> img) .project-art {
+  display: none;
+}
+
+.theme-portfolio .project-art path,
+.theme-portfolio .project-art rect,
+.theme-portfolio .project-art circle,
+.theme-portfolio .project-art line,
+.theme-portfolio .project-art polyline {
+  vector-effect: non-scaling-stroke;
+}
+
+:focus-visible {
+  outline: 2px solid var(--c-accent, #a78bfa);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background: var(--c-accent, #a78bfa);
+  color: var(--c-accent-ink, #0c0a1f);
+  font-weight: 600;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

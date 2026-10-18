@@ -1,0 +1,105 @@
+<section class="relative isolate overflow-hidden border-b border-border/70">
+  <div class="portfolio-grid pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
+  <div class="portfolio-glow pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
+  <div class="mx-auto grid max-w-6xl gap-14 px-4 py-20 sm:px-6 md:py-28 lg:grid-cols-[1.25fr_0.75fr] lg:items-end">
+    <div>
+      <p class="mb-6 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/5 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-accent">
+        <span class="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true"></span>
+        Digital-портфолио · 2026
+      </p>
+      <h1 class="max-w-3xl text-5xl font-black leading-[0.98] tracking-[-0.05em] sm:text-6xl md:text-8xl">
+        Сайты, которые <span class="text-accent">двигают</span> бизнес
+      </h1>
+      <p class="mt-7 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
+        Я {{ site.role.toLowerCase() }}. Проектирую понятные интерфейсы, собираю быстрые продукты и показываю их в живых демо.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a routerLink="/projects" class="rounded-lg bg-accent px-5 py-3 font-semibold text-accent-ink transition-transform hover:-translate-y-0.5">
+          Смотреть проекты <span aria-hidden="true">↗</span>
+        </a>
+        <a routerLink="/contact" class="rounded-lg border border-border bg-bg/50 px-5 py-3 font-medium text-text transition-colors hover:border-accent/50 hover:bg-surface-2">
+          Обсудить проект
+        </a>
+      </div>
+    </div>
+
+    <dl class="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border" aria-label="Ключевые цифры">
+      <div class="bg-surface p-5">
+        <dt class="text-xs uppercase tracking-wider text-muted">Демо-проектов</dt>
+        <dd class="mt-3 text-4xl font-black text-accent">{{ projects.length }}</dd>
+      </div>
+      <div class="bg-surface p-5">
+        <dt class="text-xs uppercase tracking-wider text-muted">Визуальных стиля</dt>
+        <dd class="mt-3 text-4xl font-black">3</dd>
+      </div>
+      <div class="col-span-2 bg-surface p-5">
+        <dt class="text-xs uppercase tracking-wider text-muted">Фокус</dt>
+        <dd class="mt-3 text-base leading-relaxed sm:text-lg">
+          Адаптивность, доступность, быстрый первый экран и понятная структура кода.
+        </dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<section class="mx-auto max-w-6xl px-4 py-16 sm:px-6" aria-labelledby="services-title">
+  <div class="flex items-end justify-between gap-4">
+    <div>
+      <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent">Компетенции</p>
+      <h2 id="services-title" class="text-3xl font-bold tracking-tight sm:text-4xl">Что я делаю</h2>
+    </div>
+    <span class="hidden text-sm text-muted sm:block">01 / 03</span>
+  </div>
+  <div class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    @for (service of services; track service.title) {
+    <article class="rounded-2xl border border-border bg-surface p-6 transition-colors hover:border-accent/50">
+        <h3 class="text-lg font-semibold">{{ service.title }}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-muted">{{ service.text }}</p>
+      </article>
+    }
+  </div>
+</section>
+
+<section class="mx-auto max-w-6xl px-4 py-16 sm:px-6" aria-labelledby="featured-title">
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent">Избранное</p>
+      <h2 id="featured-title" class="text-3xl font-bold tracking-tight sm:text-4xl">Демо-проекты</h2>
+      <p class="mt-2 text-muted">Каждый проект — отдельный визуальный стиль и свой набор функций.</p>
+    </div>
+    <a routerLink="/projects" class="text-sm font-medium text-accent hover:underline">Все проекты →</a>
+  </div>
+  <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    @for (project of projects; track project.slug) {
+      <app-project-card [project]="project" />
+    }
+  </div>
+</section>
+
+<section class="mx-auto max-w-6xl px-4 py-16 sm:px-6" aria-labelledby="process-title">
+  <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-accent">Процесс</p>
+  <h2 id="process-title" class="text-3xl font-bold tracking-tight sm:text-4xl">Как мы работаем</h2>
+  <ol class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    @for (step of steps; track step.n) {
+      <li class="rounded-2xl border border-border bg-surface/40 p-6 transition-colors hover:border-accent/50">
+        <span class="font-mono text-sm text-accent">{{ step.n }}</span>
+        <h3 class="mt-3 text-lg font-semibold">{{ step.title }}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-muted">{{ step.text }}</p>
+        <p class="mt-5 border-t border-border pt-4 text-xs font-medium leading-relaxed text-accent/80">{{ step.result }}</p>
+      </li>
+    }
+  </ol>
+</section>
+
+<section class="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
+  <div class="relative flex flex-col items-start justify-between gap-6 overflow-hidden rounded-3xl border border-accent/20 bg-surface-2 p-8 sm:flex-row sm:items-center sm:p-12">
+    <div class="pointer-events-none absolute -right-20 -bottom-32 h-72 w-72 rounded-full bg-accent/10 blur-3xl" aria-hidden="true"></div>
+    <div>
+      <h2 class="text-2xl font-bold tracking-tight sm:text-3xl">Есть задача? Напишите мне</h2>
+      <p class="mt-2 text-muted">Расскажите о бизнесе и сроках — отвечу в течение рабочего дня.</p>
+    </div>
+    <a routerLink="/contact" class="shrink-0 rounded-md bg-accent px-6 py-3 font-medium text-accent-ink transition-opacity hover:opacity-90">
+      Связаться
+    </a>
+  </div>
+</section>

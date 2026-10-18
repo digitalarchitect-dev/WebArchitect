@@ -1,0 +1,171 @@
+<section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 md:py-10">
+  <nav aria-label="Хлебные крошки" class="mb-6 text-sm text-muted">
+    <ol class="flex flex-wrap items-center gap-2">
+      <li><a routerLink="/projects/autohub/cars" class="hover:text-text">Каталог</a></li>
+      <li aria-hidden="true">/</li>
+      <li class="text-text" aria-current="page">{{ car()?.brand ?? 'Автомобиль' }} {{ car()?.model }}</li>
+    </ol>
+  </nav>
+
+  @if (carsResource.isLoading()) {
+    <div class="grid animate-pulse gap-8 lg:grid-cols-[1.4fr_1fr]" aria-busy="true">
+      <div class="aspect-[16/10] rounded-lg bg-surface"></div>
+      <div class="space-y-4">
+        <div class="h-8 w-2/3 rounded bg-surface"></div>
+        <div class="h-5 w-1/3 rounded bg-surface"></div>
+        <div class="h-40 rounded-lg bg-surface"></div>
+      </div>
+    </div>
+  } @else if (carsResource.error()) {
+    <div role="alert" class="rounded-lg border border-red-500/40 bg-red-500/5 p-8 text-center">
+      <h1 class="text-lg font-semibold">Не удалось загрузить данные</h1>
+      <button type="button" class="mt-5 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-ink" (click)="carsResource.reload()">
+        Повторить
+      </button>
+    </div>
+  } @else if (!car()) {
+    <div class="rounded-lg border border-dashed border-border p-12 text-center">
+      <h1 class="text-2xl font-bold">Автомобиль не найден</h1>
+      <p class="mt-2 text-muted">Возможно, объявление снято с продажи.</p>
+      <a routerLink="/projects/autohub/cars" class="mt-6 inline-block rounded-md bg-accent px-4 py-2 font-medium text-accent-ink">
+        Вернуться в каталог
+      </a>
+    </div>
+  } @else {
+    @let c = car()!;
+    <div class="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:items-start">
+      <div>
+        <div
+          class="relative aspect-[16/10] overflow-hidden rounded-lg border border-border bg-surface-2 focus:outline-none"
+          role="region"
+          tabindex="0"
+          aria-roledescription="галерея"
+          [attr.aria-label]="'Фото: ' + c.brand + ' ' + c.model"
+          (keydown)="onGalleryKey($event, c.photos.length)"
+        >
+          @for (src of c.photos; track $index; let i = $index) {
+            <img
+              [src]="src"
+              [alt]="c.brand + ' ' + c.model + ', фото ' + (i + 1) + ' из ' + c.photos.length"
+              width="1280"
+              height="800"
+              [loading]="i === 0 ? 'eager' : 'lazy'"
+              decoding="async"
+              class="absolute inset-0 h-full w-full object-cover transition-opacity duration-300"
+              [class.opacity-0]="activeImage() !== i"
+              [class.opacity-100]="activeImage() === i"
+              [attr.aria-hidden]="activeImage() !== i"
+            />
+          } @empty {
+            <span class="absolute inset-0 grid place-items-center text-sm font-semibold uppercase tracking-widest text-muted">
+              {{ c.brand }} · фото скоро появятся
+            </span>
+          }
+          @if (c.photos.length > 1) {
+            <div class="absolute inset-x-0 bottom-0 flex items-center justify-between p-4">
+              <button type="button" class="grid h-10 w-10 place-items-center rounded-full bg-bg/90 hover:bg-bg" aria-label="Предыдущее фото" (click)="prevImage(c.photos.length)">‹</button>
+              <button type="button" class="grid h-10 w-10 place-items-center rounded-full bg-bg/90 hover:bg-bg" aria-label="Следующее фото" (click)="nextImage(c.photos.length)">›</button>
+            </div>
+          }
+        </div>
+
+        @if (c.photos.length > 1) {
+          <div class="mt-3 flex gap-3" role="group" aria-label="Выбор фото">
+            @for (src of c.photos; track $index; let i = $index) {
+              <button
+                type="button"
+                class="h-16 w-24 overflow-hidden rounded-lg border-2 transition-colors"
+                [class.border-accent]="activeImage() === i"
+                [class.border-border]="activeImage() !== i"
+                [attr.aria-pressed]="activeImage() === i"
+                [attr.aria-label]="'Показать фото ' + (i + 1)"
+                (click)="selectImage(i)"
+              >
+                <img [src]="src" alt="" loading="lazy" class="h-full w-full object-cover" />
+              </button>
+            }
+          </div>
+        }
+
+        <section class="mt-10" aria-labelledby="desc-title">
+          <h2 id="desc-title" class="text-xl font-semibold">Описание</h2>
+          <p class="mt-3 leading-relaxed text-muted">{{ c.description }}</p>
+        </section>
+
+        <section class="mt-10" aria-labelledby="features-title">
+          <h2 id="features-title" class="text-xl font-semibold">Комплектация</h2>
+          <ul class="mt-4 flex flex-wrap gap-2">
+            @for (feature of c.features; track feature) {
+              <li class="rounded-full border border-border px-3 py-1.5 text-sm">{{ feature }}</li>
+            }
+          </ul>
+        </section>
+      </div>
+
+      <aside class="space-y-6 lg:sticky lg:top-24" aria-label="Сводка по автомобилю">
+        <div class="rounded-lg border border-border bg-surface p-6">
+          <p class="text-sm text-muted">{{ c.year }} · {{ c.body }}</p>
+          <h1 class="mt-1 text-3xl font-bold tracking-tight">{{ c.brand }} {{ c.model }}</h1>
+          <p class="mt-4 text-3xl font-bold text-accent">{{ formatRub(c.price) }}</p>
+
+          <div class="mt-6 grid grid-cols-2 gap-3">
+            <button
+              type="button"
+              class="rounded-md px-4 py-3 font-medium transition-colors"
+              [class.bg-accent]="favorites.has(c.id)"
+              [class.text-accent-ink]="favorites.has(c.id)"
+              [class.bg-surface-2]="!favorites.has(c.id)"
+              [attr.aria-pressed]="favorites.has(c.id)"
+              (click)="favorites.toggle(c.id)"
+            >
+              {{ favorites.has(c.id) ? 'В избранном' : 'В избранное' }}
+            </button>
+            <a
+              [href]="site.telegram"
+              target="_blank"
+              rel="noopener"
+              class="rounded-md border border-border px-4 py-3 text-center font-medium hover:bg-surface-2"
+            >Написать продавцу</a>
+          </div>
+          <p class="mt-3 text-xs leading-relaxed text-muted">
+            Демо-объявление: продавец, цены и контакты вымышлены. Кнопка открывает письмо с темой объявления.
+          </p>
+        </div>
+
+        <dl class="rounded-lg border border-border bg-surface p-6">
+          <h2 class="mb-4 text-lg font-semibold">Характеристики</h2>
+          <div class="divide-y divide-border">
+            @for (spec of specs(c); track spec.label) {
+              <div class="flex justify-between gap-4 py-2.5 text-sm">
+                <dt class="text-muted">{{ spec.label }}</dt>
+                <dd class="text-right font-medium">{{ spec.value }}</dd>
+              </div>
+            }
+          </div>
+        </dl>
+      </aside>
+    </div>
+
+    @if (similar().length) {
+      <section class="mt-16" aria-labelledby="similar-title">
+        <h2 id="similar-title" class="text-2xl font-bold tracking-tight">Похожие предложения</h2>
+        <ul class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          @for (item of similar(); track item.id) {
+            <li>
+              <a
+                [routerLink]="['/projects/autohub/cars', item.id]"
+                class="flex items-center justify-between rounded-lg border border-border bg-surface p-5 hover:border-accent"
+              >
+                <span>
+                  <span class="block font-semibold">{{ item.brand }} {{ item.model }}</span>
+                  <span class="text-sm text-muted">{{ item.year }} · {{ formatNumber(item.mileage) }} км</span>
+                </span>
+                <span class="font-semibold text-accent">{{ formatRub(item.price) }}</span>
+              </a>
+            </li>
+          }
+        </ul>
+      </section>
+    }
+  }
+</section>

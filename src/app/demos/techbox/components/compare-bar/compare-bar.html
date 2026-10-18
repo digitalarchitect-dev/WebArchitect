@@ -1,0 +1,47 @@
+@if (items().length) {
+  <div class="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-surface shadow-[0_-4px_16px_rgba(15,23,42,0.08)]">
+    <div class="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 py-3 sm:px-6">
+      <p class="text-sm font-medium">
+        Сравнение
+        <span class="text-muted">{{ items().length }} из {{ limit }}</span>
+      </p>
+
+      <ul class="flex flex-1 flex-wrap items-center gap-2">
+        @for (item of items(); track item.id) {
+          <li class="flex items-center gap-2 rounded-md border border-border bg-bg py-1 pr-1 pl-2 text-sm">
+            <img [src]="item.photos[0]" alt="" width="32" height="32" class="h-8 w-8 object-contain" />
+            <span class="max-w-32 truncate">{{ item.brand }} {{ item.name }}</span>
+            <button
+              type="button"
+              class="rounded p-1 text-muted hover:bg-surface-2 hover:text-text"
+              [attr.aria-label]="'Убрать из сравнения ' + item.name"
+              (click)="compare.remove(item.id)"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M6 6l12 12M18 6L6 18" />
+              </svg>
+            </button>
+          </li>
+        }
+      </ul>
+
+      <div class="flex items-center gap-2">
+        <button
+          type="button"
+          class="rounded-md border border-border px-3 py-2 text-sm hover:bg-surface-2"
+          (click)="compare.clear()"
+        >Очистить</button>
+        <a
+          routerLink="/projects/techbox/compare"
+          class="rounded-md bg-accent px-4 py-2 text-sm font-semibold text-accent-ink hover:opacity-90"
+        >Сравнить {{ items().length }}</a>
+      </div>
+    </div>
+
+    @if (visibleNotice()) {
+      <p role="status" class="border-t border-border bg-surface-2 px-4 py-2 text-center text-sm text-muted sm:px-6">
+        {{ visibleNotice() }}
+      </p>
+    }
+  </div>
+}

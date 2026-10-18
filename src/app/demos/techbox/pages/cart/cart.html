@@ -1,0 +1,114 @@
+@if (catalog.error()) {
+  <div class="mx-auto max-w-7xl px-4 py-16 text-center sm:px-6">
+    <p class="font-medium">Не удалось загрузить каталог</p>
+    <button
+      type="button"
+      class="mt-4 rounded-md bg-accent px-4 py-2 text-sm font-semibold text-accent-ink hover:opacity-90"
+      (click)="catalog.reload()"
+    >Повторить</button>
+  </div>
+} @else if (isLoading()) {
+  <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+    <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      @for (placeholder of [1, 2, 3]; track placeholder) {
+        <div class="rounded-lg border border-border bg-surface p-4 flex flex-col gap-3">
+          <div class="h-20 w-24 animate-pulse rounded-md bg-surface-2 shrink-0"></div>
+          <div class="space-y-3">
+            <div class="h-3 w-24 animate-pulse rounded bg-surface-2"></div>
+            <div class="h-4 w-3/4 animate-pulse rounded bg-surface-2"></div>
+            <div class="h-6 w-24 animate-pulse rounded bg-surface-2"></div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+} @else if (isEmpty()) {
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+    <div class="mx-auto max-w-lg rounded-lg border border-dashed border-border bg-surface p-10 text-center">
+      <svg class="mx-auto text-muted" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <path d="M3 3h2l.4 2M7 13h10l4-8M5.1 9l1.4 1M7 13l1.4 1M5 3l1.6 1.6M17 3l1.6 1.6M17 13l1.6 1.6M7 21l1.6 1.6" />
+      </svg>
+      <p class="mt-3 text-lg font-semibold">Корзина пуста</p>
+      <p class="mt-2 text-sm text-muted">
+        Добавьте товары из каталога — они появятся здесь.
+      </p>
+      <a
+        routerLink="/projects/techbox"
+        class="mt-5 inline-block rounded-md bg-accent px-4 py-2 text-sm font-semibold text-accent-ink hover:opacity-90"
+      >Перейти в каталог</a>
+    </div>
+  </div>
+} @else {
+  <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+    <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">Корзина</h1>
+
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      @for (line of lines(); track line.product.id) {
+        <div class="rounded-lg border border-border bg-surface p-4 flex flex-col gap-3">
+          <div class="flex gap-3">
+            <img
+              [src]="line.product.photos[0]"
+              [attr.alt]="line.product.brand + ' ' + line.product.name"
+              width="200"
+              height="150"
+              class="h-20 w-24 rounded-md bg-surface-2 object-contain shrink-0"
+            />
+            <div class="min-w-0">
+              <p class="text-xs font-medium tracking-wide text-muted uppercase">
+                {{ line.product.brand }}
+              </p>
+              <a
+                [routerLink]="['/projects/techbox/product', line.product.id]"
+                class="leading-snug font-semibold hover:text-accent"
+              >{{ line.product.name }}</a>
+            </div>
+          </div>
+
+          <div class="mt-auto flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <button
+                type="button"
+                class="rounded-md border border-border px-2 py-1.5 text-sm hover:bg-surface-2"
+                (click)="changeQty(line.product.id, -1)"
+                [disabled]="line.item.quantity === 1"
+              >−</button>
+              <input
+                type="number"
+                min="1"
+                [max]="line.product.stock"
+                [value]="line.item.quantity"
+                class="w-12 rounded-md border border-border bg-surface px-2 py-1.5 text-sm text-center outline-none focus:border-accent"
+                (change)="setQtyFromInput(line.product.id, $any($event.target).value)"
+              />
+              <button
+                type="button"
+                class="rounded-md border border-border px-2 py-1.5 text-sm hover:bg-surface-2"
+                (click)="changeQty(line.product.id, 1)"
+                [disabled]="line.item.quantity >= line.product.stock"
+              >+</button>
+            </div>
+            <button
+              type="button"
+              class="text-xs text-red-600 hover:underline"
+              (click)="remove(line.product.id)"
+            >Удалить</button>
+            <span class="font-semibold text-right">{{ formatRub(line.product.price * line.item.quantity) }}</span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="mt-6 flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <p class="text-sm text-muted">Итого</p>
+        <p class="text-lg font-bold">{{ formatRub(total()) }}</p>
+      </div>
+      <button
+        type="button"
+        class="rounded-md bg-accent px-5 py-3 text-sm font-semibold text-accent-ink hover:opacity-90"
+        [disabled]="isEmpty()"
+        (click)="checkout()"
+      >Оформить заказ</button>
+    </div>
+  </div>
+}

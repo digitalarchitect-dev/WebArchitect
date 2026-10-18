@@ -1,0 +1,23 @@
+<details class="group text-xs text-muted">
+  <summary class="cursor-pointer select-none rounded-md hover:text-text">
+    Источники и лицензии фотографий ({{ credits().length }})
+  </summary>
+  <div class="mt-3 space-y-2">
+    <p>
+      Фото товаров взяты с Wikimedia Commons по свободным лицензиям Creative Commons.
+      Изображения уменьшены до ширины 1280 px и переведены в WebP; других изменений не вносилось.
+      Изображения могут отличаться от реального внешнего вида товара.
+    </p>
+    <ul class="grid gap-1.5 sm:grid-cols-2">
+      @for (credit of credits(); track credit.file) {
+        <li class="leading-relaxed">
+          <a [href]="credit.source" target="_blank" rel="noopener" class="text-text underline-offset-2 hover:underline">{{ credit.title }}</a>
+          — {{ credit.author }},
+          <a [href]="credit.licenseUrl" target="_blank" rel="noopener" class="underline-offset-2 hover:underline">{{ credit.license }}</a>
+        </li>
+      } @empty {
+        <li>Данные об источниках не загружены.</li>
+      }
+    </ul>
+  </div>
+</details>

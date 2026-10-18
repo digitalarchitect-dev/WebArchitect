@@ -1,0 +1,120 @@
+<section class="mx-auto max-w-7xl px-4 py-8 sm:px-6 md:py-10" aria-labelledby="catalog-title">
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <h1 id="catalog-title" class="text-3xl font-bold tracking-tight sm:text-4xl">Каталог автомобилей</h1>
+      <p class="mt-2 text-muted" aria-live="polite">
+        @if (carsResource.isLoading()) {
+          Загружаем предложения…
+        } @else if (carsResource.error()) {
+          Не удалось загрузить каталог
+        } @else {
+          Найдено: {{ results().length }} из {{ cars().length }}
+        }
+      </p>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button
+        type="button"
+        class="rounded-md border border-border px-3 py-2 text-sm md:hidden"
+        [attr.aria-expanded]="filtersOpen()"
+        aria-controls="car-filters-panel"
+        (click)="filtersOpen.set(!filtersOpen())"
+      >
+        Фильтры
+        @if (activeFilterCount() > 0) {
+          <span class="ml-1 rounded-full bg-accent px-1.5 text-xs text-accent-ink">{{ activeFilterCount() }}</span>
+        }
+      </button>
+
+      <label class="flex items-center gap-2 text-sm text-muted">
+        <span class="hidden sm:inline">Сортировка</span>
+        <select
+          aria-label="Сортировка"
+          class="rounded-md border border-border bg-surface px-3 py-2 text-sm text-text outline-none focus:border-accent"
+          (change)="onSortChange($any($event.target).value)"
+        >
+          @for (option of sortOptions; track option.value) {
+            <option [value]="option.value" [selected]="sort() === option.value">{{ option.label }}</option>
+          }
+        </select>
+      </label>
+    </div>
+  </div>
+
+  <div class="mt-8 grid gap-8 md:grid-cols-[17rem_1fr] lg:grid-cols-[18rem_1fr]">
+    <aside
+      id="car-filters-panel"
+      class="rounded-lg border border-border bg-surface p-5 md:sticky md:top-24 md:block md:h-fit"
+      [class.hidden]="!filtersOpen()"
+      aria-label="Фильтры"
+    >
+      <div class="mb-5 flex items-center justify-between">
+        <h2 class="text-base font-semibold">Фильтры</h2>
+        @if (activeFilterCount() > 0) {
+          <button type="button" class="text-sm text-accent hover:underline" (click)="resetAll()">
+            Сбросить
+          </button>
+        }
+      </div>
+      <app-car-filters
+        [filters]="filters()"
+        [brands]="brands()"
+        [bodies]="bodies"
+        [fuels]="fuels"
+        [transmissions]="transmissions"
+        (changed)="onFiltersChange($event)"
+      />
+    </aside>
+
+    <div>
+      @if (carsResource.isLoading()) {
+        <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-3" aria-hidden="true">
+          @for (i of [1, 2, 3, 4, 5, 6]; track i) {
+            <div class="animate-pulse overflow-hidden rounded-lg border border-border bg-surface">
+              <div class="aspect-[16/10] bg-surface-2"></div>
+              <div class="space-y-3 p-4">
+                <div class="h-4 w-2/3 rounded bg-surface-2"></div>
+                <div class="h-3 w-1/2 rounded bg-surface-2"></div>
+                <div class="h-6 w-1/3 rounded bg-surface-2"></div>
+              </div>
+            </div>
+          }
+        </div>
+      } @else if (carsResource.error()) {
+        <div role="alert" class="rounded-lg border border-red-500/40 bg-red-500/5 p-8 text-center">
+          <h2 class="text-lg font-semibold">Каталог временно недоступен</h2>
+          <p class="mt-2 text-muted">Проверьте соединение и попробуйте ещё раз.</p>
+          <button
+            type="button"
+            class="mt-5 rounded-md bg-accent px-4 py-2 text-sm font-medium text-accent-ink"
+            (click)="carsResource.reload()"
+          >Повторить</button>
+        </div>
+      } @else if (results().length === 0) {
+        <div class="rounded-lg border border-dashed border-border p-10 text-center">
+          <h2 class="text-lg font-semibold">Ничего не найдено</h2>
+          <p class="mt-2 text-muted">Попробуйте изменить запрос или убрать часть фильтров.</p>
+          <button
+            type="button"
+            class="mt-5 rounded-md border border-border px-4 py-2 text-sm hover:bg-surface-2"
+            (click)="resetAll()"
+          >Сбросить фильтры</button>
+        </div>
+      } @else {
+        <ul class="grid gap-5 sm:grid-cols-2 xl:grid-cols-3" aria-label="Список автомобилей">
+          @for (car of results(); track car.id; let i = $index) {
+            <li>
+              <app-car-card
+                [car]="car"
+                [priority]="i < 6"
+                [favorite]="favorites.has(car.id)"
+                (favoriteToggle)="toggleFavorite($event)"
+              />
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  </div>
+</section>

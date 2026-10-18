@@ -1,0 +1,87 @@
+<article class="group flex flex-col overflow-hidden rounded-lg border border-border bg-surface">
+  <div class="relative bg-surface-2">
+    <a [routerLink]="['/projects/techbox/product', product().id]" class="block">
+      <img
+        [src]="product().photos[0]"
+        [attr.alt]="product().brand + ' ' + product().name"
+        [attr.loading]="priority() ? 'eager' : 'lazy'"
+        [attr.fetchpriority]="priority() ? 'high' : null"
+        width="640"
+        height="480"
+        class="aspect-4/3 w-full object-contain transition-transform duration-200 group-hover:scale-[1.03]"
+      />
+    </a>
+
+    @if (product().badge || discount()) {
+      <span
+        class="absolute top-3 left-3 rounded-md px-2 py-1 text-xs font-semibold"
+        [class.bg-accent]="product().badge === 'Хит'"
+        [class.text-accent-ink]="product().badge === 'Хит'"
+        [class.bg-red-600]="discount() && product().badge !== 'Хит'"
+        [class.text-white]="discount() && product().badge !== 'Хит'"
+      >{{ discount() ? '−' + discount() + '%' : product().badge }}</span>
+    }
+
+    @if (product().stock === 0) {
+      <span class="absolute top-3 right-3 rounded-md bg-surface px-2 py-1 text-xs font-medium text-muted">
+        Нет в наличии
+      </span>
+    }
+  </div>
+
+  <div class="flex flex-1 flex-col p-4">
+    <p class="text-xs font-medium tracking-wide text-muted uppercase">{{ product().brand }}</p>
+    <h3 class="mt-1 leading-snug font-semibold">
+      <a [routerLink]="['/projects/techbox/product', product().id]" class="hover:text-accent">
+        {{ product().name }}
+      </a>
+    </h3>
+
+    <p class="mt-2 flex items-center gap-1.5 text-sm text-muted">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" class="text-amber-500" aria-hidden="true">
+        <path d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z" />
+      </svg>
+      <span class="font-medium text-text">{{ formatRating(product().rating) }}</span>
+      <span>· {{ product().reviews }} отзывов</span>
+    </p>
+
+    <p class="mt-3 text-sm text-muted">
+      {{ product().short }}
+    </p>
+
+    <div class="mt-auto pt-4">
+      <div class="flex items-baseline gap-2">
+        <span class="text-lg font-bold">{{ formatRub(product().price) }}</span>
+        @if (product().oldPrice) {
+          <span class="text-sm text-muted line-through">{{ formatRub(product().oldPrice!) }}</span>
+        }
+      </div>
+
+      <div class="mt-3 grid grid-cols-2 gap-2">
+        <button
+          type="button"
+          class="rounded-md border px-3 py-2 text-sm font-medium transition-colors"
+          [class.border-accent]="cart.has(product().id)"
+          [class.bg-accent]="cart.has(product().id)"
+          [class.text-accent-ink]="cart.has(product().id)"
+          [class.border-border]="!cart.has(product().id)"
+          [class.hover:bg-surface-2]="!cart.has(product().id)"
+          [disabled]="product().stock === 0"
+          (click)="toggleCart()"
+        >
+          {{ product().stock === 0 ? 'Нет в наличии' : cart.has(product().id) ? 'В корзине' : 'В корзину' }}
+        </button>
+        <button
+          type="button"
+          class="rounded-md border border-border px-3 py-2 text-sm font-medium text-muted hover:bg-surface-2"
+          [class.border-accent]="compare.has(product().id)"
+          [class.text-accent]="compare.has(product().id)"
+          [attr.aria-pressed]="compare.has(product().id)"
+          (click)="toggleCompare()"
+        >
+          {{ compare.has(product().id) ? 'В сравнении' : 'Сравнить' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</article>

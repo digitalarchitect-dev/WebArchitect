@@ -1,0 +1,239 @@
+@if (catalog.error()) {
+  <div class="mx-auto max-w-7xl px-4 py-16 text-center sm:px-6">
+    <p class="font-medium">Не удалось загрузить каталог</p>
+    <button
+      type="button"
+      class="mt-4 rounded-md bg-accent px-4 py-2 text-sm font-semibold text-accent-ink hover:opacity-90"
+      (click)="catalog.reload()"
+    >Повторить</button>
+  </div>
+} @else if (isLoading()) {
+  <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+    <div class="animate-pulse rounded-lg bg-surface-2 h-32 w-full md:w-96"></div>
+  </div>
+} @else if (isEmpty()) {
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+    <div class="mx-auto max-w-lg rounded-lg border border-dashed border-border bg-surface p-10 text-center">
+      <p class="text-lg font-semibold">Корзина пуста</p>
+      <p class="mt-2 text-sm text-muted">Оформление заказа невозможно без товаров.</p>
+      <a
+        routerLink="/projects/techbox"
+        class="mt-4 inline-block rounded-md bg-accent px-4 py-2 text-sm font-semibold text-accent-ink hover:opacity-90"
+      >Перейти в каталог</a>
+    </div>
+  </div>
+} @else {
+  <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:py-10">
+    <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">Оформление заказа</h1>
+
+    <div class="mt-6 lg:grid lg:grid-cols-[1fr_320px] lg:gap-8">
+      <form
+        #f="ngForm"
+        (ngSubmit)="placeOrder(f)"
+        novalidate
+        class="space-y-5"
+        aria-label="Форма оформления заказа"
+      >
+        <div>
+          <label class="block text-sm font-medium mb-1">
+            Имя и фамилия <span class="text-red-500" aria-hidden="true">*</span>
+          </label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            autocomplete="name"
+            required
+            minlength="2"
+            placeholder="Иван Иванов"
+            [(ngModel)]="customer.name"
+            #name="ngModel"
+            class="w-full rounded-md border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
+            [class.border-red-500]="submitted && name.invalid"
+          />
+          @if (submitted && name.invalid) {
+            <p class="mt-1 text-sm text-red-500">
+              @if (name.errors?.['required']) {
+                Укажите имя и фамилию.
+              }
+              @if (name.errors?.['minlength']) {
+                Минимум 2 символа.
+              }
+            </p>
+          }
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">
+            Электронная почта <span class="text-red-500" aria-hidden="true">*</span>
+          </label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+            placeholder="ivan@example.com"
+            [(ngModel)]="customer.email"
+            #email="ngModel"
+            class="w-full rounded-md border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
+            [class.border-red-500]="submitted && email.invalid"
+          />
+          @if (submitted && email.invalid) {
+            <p class="mt-1 text-sm text-red-500">
+              @if (email.errors?.['required']) {
+                Укажите электронную почту.
+              }
+              @if (email.errors?.['pattern'] || email.errors?.['email']) {
+                Введите корректный адрес электронной почты.
+              }
+            </p>
+          }
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">
+            Телефон <span class="text-red-500" aria-hidden="true">*</span>
+          </label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            inputmode="tel"
+            autocomplete="tel"
+            required
+            pattern="^[+\d][\d\s()\-]{9,}$"
+            placeholder="+7 900 000-00-00"
+            [(ngModel)]="customer.phone"
+            #phone="ngModel"
+            class="w-full rounded-md border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
+            [class.border-red-500]="submitted && phone.invalid"
+          />
+          @if (submitted && phone.invalid) {
+            <p class="mt-1 text-sm text-red-500">
+              @if (phone.errors?.['required']) {
+                Укажите телефон.
+              }
+              @if (phone.errors?.['pattern']) {
+                Введите телефон в формате +7 900 000-00-00.
+              }
+            </p>
+          }
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium mb-1">
+            Город и адрес доставки <span class="text-red-500" aria-hidden="true">*</span>
+          </label>
+          <input
+            id="city-address"
+            name="cityAddress"
+            type="text"
+            autocomplete="address-line1"
+            required
+            placeholder="Москва, ул. Тверская, 1"
+            [(ngModel)]="customer.cityAddress"
+            #cityAddress="ngModel"
+            class="w-full rounded-md border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
+            [class.border-red-500]="submitted && cityAddress.invalid"
+          />
+          @if (submitted && cityAddress.invalid) {
+            <p class="mt-1 text-sm text-red-500">Укажите город и адрес доставки.</p>
+          }
+        </div>
+
+        <fieldset class="border border-border rounded-md p-3">
+          <legend class="px-2 text-xs font-medium tracking-wide text-muted uppercase">
+            Способ получения
+          </legend>
+          <div class="mt-3 space-y-2">
+            @for (method of deliveryMethods; track method) {
+              <label class="flex cursor-pointer items-center gap-3 text-sm">
+                <input
+                  type="radio"
+                  name="delivery"
+                  [value]="method"
+                  required
+                  [(ngModel)]="delivery"
+                  class="rounded border-border bg-surface text-accent focus:ring-0"
+                />
+                <span>{{ deliveryLabels[method] }}</span>
+              </label>
+            }
+          </div>
+        </fieldset>
+
+        <fieldset class="border border-border rounded-md p-3">
+          <legend class="px-2 text-xs font-medium tracking-wide text-muted uppercase">
+            Способ оплаты
+          </legend>
+          <div class="mt-3 space-y-2">
+            @for (method of paymentMethods; track method) {
+              <label class="flex cursor-pointer items-center gap-3 text-sm">
+                <input
+                  type="radio"
+                  name="payment"
+                  [value]="method"
+                  required
+                  [(ngModel)]="payment"
+                  class="rounded border-border bg-surface text-accent focus:ring-0"
+                />
+                <span>{{ paymentLabels[method] }}</span>
+              </label>
+            }
+            @if (payment === 'card') {
+              <p class="mt-2 text-xs text-muted">
+                Демонстрационная оплата: реквизиты банковской карты не
+                запрашиваются и не передаются никуда.
+              </p>
+            }
+          </div>
+        </fieldset>
+
+        @if (error) {
+          <p class="text-sm text-red-600">{{ error }}</p>
+        }
+
+        <button
+          type="submit"
+          class="w-full rounded-md bg-accent px-5 py-3 text-sm font-semibold text-accent-ink hover:opacity-90 disabled:opacity-60"
+          [disabled]="f.invalid || isEmpty()"
+        >
+          Оформить демо-заказ
+        </button>
+
+        <p class="mt-3 text-xs leading-relaxed text-muted">
+          Это демонстрационный заказ: реальная оплата, доставка и создание
+          настоящего заказа не выполняются.
+        </p>
+
+        <p class="mt-1">
+          <a routerLink="/projects/techbox/cart" class="text-sm text-muted hover:underline">
+            ← Вернуться в корзину
+          </a>
+        </p>
+      </form>
+
+      <aside class="lg:sticky lg:top-24">
+        <div class="rounded-lg border border-border bg-surface p-5">
+          <p class="text-sm font-semibold mb-3">Состав заказа</p>
+          @for (line of lines(); track line.product.id) {
+            <div class="mb-2.5 text-sm flex justify-between gap-3">
+              <span class="line-clamp-1">{{ line.product.brand }} {{ line.product.name }}</span>
+              <span class="font-medium">{{ formatRub(line.product.price * line.item.quantity) }}</span>
+              <span class="text-muted text-xs">×{{ line.item.quantity }}</span>
+            </div>
+          }
+          <div class="mt-3 pt-3 border-t border-border flex justify-between font-semibold">
+            <span>Итого</span>
+            <span>{{ formatRub(total()) }}</span>
+          </div>
+          <p class="mt-3 text-xs text-muted leading-relaxed">
+            {{ deliveryLabels[delivery] }} ·
+            {{ paymentLabels[payment] }}
+          </p>
+        </div>
+      </aside>
+    </div>
+  </div>
+}

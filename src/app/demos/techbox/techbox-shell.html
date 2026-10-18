@@ -1,0 +1,108 @@
+<header class="sticky top-0 z-30 border-b border-border bg-surface">
+  <div class="mx-auto flex max-w-7xl flex-wrap items-center gap-3 px-4 py-3 sm:px-6">
+    <a routerLink="/projects/techbox" class="flex items-center gap-2 text-lg font-bold tracking-tight">
+      <span class="grid h-8 w-8 place-items-center rounded-md bg-accent text-accent-ink" aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 8l-9-5-9 5v8l9 5 9-5z" /><path d="M3 8l9 5 9-5M12 13v8" />
+        </svg>
+      </span>
+      Techbox
+    </a>
+
+    <form class="order-3 flex w-full items-center gap-2 sm:order-none sm:w-auto sm:flex-1 sm:max-w-md" (ngSubmit)="search()">
+      <label class="sr-only" for="header-search">Поиск по каталогу</label>
+      <div class="relative w-full">
+        <svg
+          class="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-muted"
+          width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"
+        >
+          <circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" />
+        </svg>
+        <input
+          id="header-search"
+          type="search"
+          name="q"
+          placeholder="Например, MacBook или наушники"
+          class="w-full rounded-md border border-border bg-bg py-2 pr-3 pl-9 text-sm outline-none focus:border-accent"
+          [ngModel]="headerQuery()"
+          (ngModelChange)="headerQuery.set($event)"
+        />
+      </div>
+      <button type="submit" class="rounded-md border border-border px-3 py-2 text-sm hover:bg-surface-2">
+        Найти
+      </button>
+    </form>
+
+    <nav aria-label="Раздел демо" class="ml-auto flex flex-wrap items-center justify-end gap-1 text-sm">
+      <a
+        routerLink="/projects/techbox"
+        routerLinkActive="bg-surface-2 text-text"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="rounded-md px-3 py-2 text-muted hover:text-text"
+      >Каталог</a>
+      <a
+        routerLink="/projects/techbox/compare"
+        routerLinkActive="bg-surface-2 text-text"
+        class="flex items-center gap-1.5 rounded-md px-2 py-2 text-muted hover:text-text sm:gap-2 sm:px-3"
+      >
+        <span class="hidden sm:inline">Сравнение</span>
+        <span class="sm:hidden" aria-hidden="true">Сравн.</span>
+        <span
+          class="min-w-5 rounded-full bg-accent px-1.5 text-center text-xs font-semibold text-accent-ink"
+          [attr.aria-label]="'товаров в сравнении: ' + compare.count()"
+        >{{ compare.count() }}</span>
+      </a>
+      <a
+        routerLink="/projects/techbox/cart"
+        routerLinkActive="bg-surface-2 text-text"
+        class="flex items-center gap-1.5 rounded-md px-2 py-2 text-muted hover:text-text sm:gap-2 sm:px-3"
+        [attr.aria-label]="'товаров в корзине: ' + cart.count()"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="8" cy="21" r="1" /><circle cx="19" cy="21" r="1" /><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+        </svg>
+        <span class="hidden sm:inline">Корзина</span>
+        <span
+          class="min-w-5 rounded-full bg-accent px-1.5 text-center text-xs font-semibold text-accent-ink"
+          [attr.aria-hidden]="true"
+        >{{ cart.count() }}</span>
+      </a>
+      <button
+        type="button"
+        class="rounded-md border border-border px-2 py-2 text-muted hover:bg-surface-2"
+        [attr.aria-pressed]="theme.theme() === 'dark'"
+        [attr.aria-label]="theme.theme() === 'dark' ? 'Переключить на светлую тему' : 'Переключить на тёмную тему'"
+        (click)="theme.toggle()"
+      >
+        @if (theme.theme() === 'dark') {
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5" /><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+          </svg>
+        } @else {
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+          </svg>
+        }
+      </button>
+      <a routerLink="/projects" class="ml-1 hidden rounded-md border border-border px-3 py-2 text-muted hover:text-text lg:inline-block">
+        ← Портфолио
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" [class.pb-28]="compare.count() || cart.count()">
+  <router-outlet />
+</main>
+
+<footer class="border-t border-border bg-surface">
+  <div class="mx-auto max-w-7xl space-y-3 px-4 py-6 text-xs text-muted sm:px-6">
+    <p>
+      Демо-проект интернет-магазина. Товары, цены, наличие и отзывы вымышлены.
+      Оформление заказа — демонстрационное, реальная оплата и доставка не выполняются.
+    </p>
+    <app-photo-credits />
+  </div>
+</footer>
+
+<app-compare-bar />

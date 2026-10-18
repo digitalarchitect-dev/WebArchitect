@@ -1,0 +1,73 @@
+<article class="group flex flex-col overflow-hidden rounded-2xl border border-border bg-surface transition-all duration-300 hover:-translate-y-1 hover:border-accent/50 hover:shadow-[0_18px_50px_rgba(0,0,0,0.25)]">
+  <div
+    class="project-cover relative h-48"
+    [class.cover-autohub]="project().slug === 'autohub'"
+    [class.cover-techbox]="project().slug === 'techbox'"
+    [class.cover-skillio]="project().slug === 'skillio'"
+    [class.cover-tilda-auto]="project().slug === 'tilda-auto'"
+    [class.cover-tilda-vanlove]="project().slug === 'tilda-vanlove'"
+    aria-hidden="true"
+  >
+    @if (project().preview) {
+      <img [src]="project().preview" [alt]="project().title + ' — превью сайта'" class="absolute inset-0 z-0 h-full w-full object-cover object-top" loading="lazy" />
+      <span class="absolute inset-0 z-0 bg-gradient-to-t from-black/80 via-black/15 to-black/10"></span>
+    }
+    @if (project().slug === 'autohub') {
+      <svg class="project-art" viewBox="0 0 220 150" fill="none">
+        <path d="M18 96h184l-8-28a13 13 0 0 0-12-9h-35l-18-20H70a17 17 0 0 0-15 9L40 59H29a11 11 0 0 0-11 11v26Z" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M65 59h64l16 20H52l13-20ZM18 96v16h25m134-16v16h25" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+        <circle cx="61" cy="105" r="15" stroke="currentColor" stroke-width="4" /><circle cx="159" cy="105" r="15" stroke="currentColor" stroke-width="4" />
+        <path d="M31 82h22m114 0h22" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity=".65" />
+      </svg>
+    } @else if (project().slug === 'techbox') {
+      <svg class="project-art" viewBox="0 0 220 150" fill="none">
+        <rect x="45" y="17" width="104" height="116" rx="10" stroke="currentColor" stroke-width="3" />
+        <rect x="57" y="31" width="80" height="68" rx="4" stroke="currentColor" stroke-width="2" opacity=".7" />
+        <circle cx="97" cy="116" r="5" fill="currentColor" />
+        <path d="M16 45h22M16 61h22M16 77h22M158 51h45M158 67h45M158 83h28" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".75" />
+        <path d="m73 74 12-15 10 9 15-22 17 28" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    } @else if (project().slug === 'tilda-auto') {
+      <svg class="project-art" viewBox="0 0 220 150" fill="none">
+        <rect x="25" y="22" width="170" height="106" rx="10" stroke="currentColor" stroke-width="3" />
+        <path d="M25 45h170" stroke="currentColor" stroke-width="3" />
+        <circle cx="41" cy="34" r="3" fill="currentColor" /><circle cx="53" cy="34" r="3" fill="currentColor" /><circle cx="65" cy="34" r="3" fill="currentColor" />
+        <path d="M53 91h72M53 106h43" stroke="currentColor" stroke-width="5" stroke-linecap="round" opacity=".8" />
+        <path d="m145 70 23 23-23 23-23-23 23-23Z" stroke="currentColor" stroke-width="3" />
+      </svg>
+    } @else if (project().slug === 'tilda-vanlove') {
+      <svg class="project-art" viewBox="0 0 220 150" fill="none">
+        <path d="M31 117c17-28 31-43 47-43 20 0 24 24 43 24 20 0 31-34 68-55" stroke="currentColor" stroke-width="4" stroke-linecap="round" />
+        <path d="M38 40h70M38 53h45" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity=".65" />
+        <circle cx="158" cy="48" r="20" stroke="currentColor" stroke-width="3" /><path d="M158 35v26m-13-13h26" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+        <path d="M43 122h134" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".5" />
+      </svg>
+    } @else {
+      <svg class="project-art" viewBox="0 0 220 150" fill="none">
+        <circle cx="110" cy="43" r="18" stroke="currentColor" stroke-width="3" />
+        <circle cx="57" cy="92" r="14" stroke="currentColor" stroke-width="3" />
+        <circle cx="163" cy="92" r="14" stroke="currentColor" stroke-width="3" />
+        <path d="M78 132c3-23 15-35 32-35s29 12 32 35M30 132c2-17 11-26 27-26 10 0 19 5 24 15M139 121c5-10 14-15 24-15 16 0 25 9 27 26" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
+        <path d="M96 57 69 80m55-23 27 23" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity=".65" />
+      </svg>
+    }
+    <span class="absolute top-4 right-5 font-mono text-xs text-accent/80">0{{ project().slug === 'autohub' ? 1 : project().slug === 'techbox' ? 2 : project().slug === 'skillio' ? 3 : project().slug === 'tilda-auto' ? 4 : 5 }}</span>
+    <span class="absolute bottom-4 left-5 text-4xl font-black tracking-tight text-white/90 drop-shadow">{{ project().title }}</span>
+  </div>
+  <div class="flex flex-1 flex-col gap-4 p-6">
+    <div>
+      <p class="text-xs font-medium uppercase tracking-wider text-muted">{{ project().category }}</p>
+      <h3 class="mt-1 text-xl font-semibold">{{ project().title }}</h3>
+      <p class="mt-2 text-sm leading-relaxed text-muted">{{ project().summary }}</p>
+    </div>
+    @if (project().external) {
+      <a [href]="project().path" target="_blank" rel="noopener noreferrer" class="mt-auto inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline">
+        Открыть сайт <span aria-hidden="true">↗</span><span class="sr-only">{{ project().title }}</span>
+      </a>
+    } @else {
+      <a [routerLink]="project().path" class="mt-auto inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline">
+        Открыть демо <span aria-hidden="true">→</span><span class="sr-only">{{ project().title }}</span>
+      </a>
+    }
+  </div>
+</article>

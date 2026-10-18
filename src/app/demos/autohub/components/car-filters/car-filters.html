@@ -1,0 +1,112 @@
+<div class="space-y-6">
+  <div>
+    <label for="car-search" class="mb-2 block text-sm font-medium">Поиск</label>
+    <input
+      id="car-search"
+      type="search"
+      placeholder="Марка, модель, год"
+      autocomplete="off"
+      class="w-full rounded-md border border-border bg-bg px-3 py-2.5 text-sm outline-none placeholder:text-muted focus:border-accent"
+      [value]="filters().query"
+      (input)="setQuery($any($event.target).value)"
+    />
+  </div>
+
+  <fieldset>
+    <legend class="mb-2 text-sm font-medium">Цена, ₽</legend>
+    <div class="grid grid-cols-2 gap-2">
+      <input
+        type="number"
+        inputmode="numeric"
+        min="0"
+        step="50000"
+        aria-label="Цена от"
+        placeholder="от"
+        class="w-full rounded-md border border-border bg-bg px-3 py-2 text-sm outline-none focus:border-accent"
+        [value]="filters().priceMin ?? ''"
+        (change)="setNumber('priceMin', $any($event.target).value)"
+      />
+      <input
+        type="number"
+        inputmode="numeric"
+        min="0"
+        step="50000"
+        aria-label="Цена до"
+        placeholder="до"
+        class="w-full rounded-md border border-border bg-bg px-3 py-2 text-sm outline-none focus:border-accent"
+        [value]="filters().priceMax ?? ''"
+        (change)="setNumber('priceMax', $any($event.target).value)"
+      />
+    </div>
+  </fieldset>
+
+  <div>
+    <label for="car-year" class="mb-2 block text-sm font-medium">Год от</label>
+    <input
+      id="car-year"
+      type="number"
+      inputmode="numeric"
+      min="1990"
+      max="2026"
+      placeholder="например, 2020"
+      class="w-full rounded-md border border-border bg-bg px-3 py-2 text-sm outline-none focus:border-accent"
+      [value]="filters().yearMin ?? ''"
+      (change)="setNumber('yearMin', $any($event.target).value)"
+    />
+  </div>
+
+  <div>
+    <label for="car-transmission" class="mb-2 block text-sm font-medium">Коробка передач</label>
+    <select
+      id="car-transmission"
+      class="w-full rounded-md border border-border bg-bg px-3 py-2 text-sm outline-none focus:border-accent"
+      (change)="setTransmission($any($event.target).value)"
+    >
+      <option value="" [selected]="!filters().transmission">Любая</option>
+      @for (t of transmissions(); track t) {
+        <option [value]="t" [selected]="filters().transmission === t">{{ t }}</option>
+      }
+    </select>
+  </div>
+
+  <fieldset>
+    <legend class="mb-2 text-sm font-medium">Кузов</legend>
+    <div class="flex flex-wrap gap-2">
+      @for (b of bodies(); track b) {
+        <label class="cursor-pointer">
+          <input type="checkbox" class="peer sr-only" [checked]="isChecked('bodies', b)" (change)="toggleList('bodies', b)" />
+          <span class="inline-block rounded-full border border-border px-3 py-1 text-sm text-muted transition-colors peer-checked:border-accent peer-checked:bg-accent peer-checked:text-accent-ink peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent">{{ b }}</span>
+        </label>
+      }
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend class="mb-2 text-sm font-medium">Топливо</legend>
+    <div class="flex flex-wrap gap-2">
+      @for (f of fuels(); track f) {
+        <label class="cursor-pointer">
+          <input type="checkbox" class="peer sr-only" [checked]="isChecked('fuels', f)" (change)="toggleList('fuels', f)" />
+          <span class="inline-block rounded-full border border-border px-3 py-1 text-sm text-muted transition-colors peer-checked:border-accent peer-checked:bg-accent peer-checked:text-accent-ink peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-accent">{{ f }}</span>
+        </label>
+      }
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend class="mb-2 text-sm font-medium">Марка</legend>
+    <div class="max-h-48 space-y-1 overflow-y-auto pr-1">
+      @for (brand of brands(); track brand) {
+        <label class="flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 text-sm hover:bg-surface-2">
+          <input
+            type="checkbox"
+            class="h-4 w-4 accent-[var(--c-accent)]"
+            [checked]="isChecked('brands', brand)"
+            (change)="toggleList('brands', brand)"
+          />
+          {{ brand }}
+        </label>
+      }
+    </div>
+  </fieldset>
+</div>

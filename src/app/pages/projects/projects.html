@@ -1,0 +1,14 @@
+<section class="mx-auto max-w-6xl px-4 py-16 sm:px-6 md:py-20">
+  <p class="text-sm font-medium uppercase tracking-widest text-accent">Портфолио</p>
+  <h1 class="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">Демо-проекты</h1>
+  <p class="mt-4 max-w-2xl text-lg text-muted">
+    Три интерактивных сайта с разной предметной областью и визуальным стилем. Все данные вымышленные и
+    нужны только для демонстрации.
+  </p>
+
+  <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    @for (project of projects; track project.slug) {
+      <app-project-card [project]="project" />
+    }
+  </div>
+</section>

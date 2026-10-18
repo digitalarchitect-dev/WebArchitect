@@ -1,0 +1,152 @@
+<section class="border-b border-border bg-surface">
+  <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+    <h1 class="text-2xl font-bold tracking-tight sm:text-3xl">Каталог техники</h1>
+    <p class="mt-2 max-w-2xl text-sm text-muted">
+      {{ catalog.products().length }} позиций в наличии и под заказ. Цены, наличие и отзывы — демонстрационные.
+    </p>
+
+    <div class="mt-5 flex flex-wrap gap-2">
+      <button
+        type="button"
+        class="rounded-md border px-3 py-1.5 text-sm"
+        [class.border-accent]="!filters().categories.length"
+        [class.bg-accent]="!filters().categories.length"
+        [class.text-accent-ink]="!filters().categories.length"
+        [class.border-border]="filters().categories.length > 0"
+        [class.text-muted]="filters().categories.length > 0"
+        (click)="onFiltersChange({ ...filters(), categories: [] })"
+      >Все категории</button>
+
+      @for (category of categories; track category) {
+        <button
+          type="button"
+          class="rounded-md border px-3 py-1.5 text-sm"
+          [class.border-accent]="filters().categories.includes(category)"
+          [class.bg-accent]="filters().categories.includes(category)"
+          [class.text-accent-ink]="filters().categories.includes(category)"
+          [class.border-border]="!filters().categories.includes(category)"
+          [class.text-muted]="!filters().categories.includes(category)"
+          [attr.aria-pressed]="filters().categories.includes(category)"
+          (click)="toggleCategory(category)"
+        >{{ category }}</button>
+      }
+    </div>
+  </div>
+</section>
+
+<div class="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+  <div class="lg:grid lg:grid-cols-[240px_1fr] lg:items-start lg:gap-8">
+    <aside
+      class="mb-6 rounded-lg border border-border bg-surface p-4 lg:sticky lg:top-24 lg:mb-0 lg:block"
+      [class.hidden]="!filtersOpen()"
+    >
+      <app-product-filters
+        [filters]="filters()"
+        [categories]="categories"
+        [brands]="catalog.brands()"
+        [resultCount]="results().length"
+        (filtersChange)="onFiltersChange($event)"
+      />
+    </aside>
+
+    <div>
+      <div class="flex flex-wrap items-center gap-3">
+        <div class="relative min-w-48 flex-1">
+          <label class="sr-only" for="catalog-search">Поиск по каталогу</label>
+          <svg
+            class="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-muted"
+            width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"
+          >
+            <circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" />
+          </svg>
+          <input
+            id="catalog-search"
+            type="search"
+            placeholder="Поиск по названию или бренду"
+            class="w-full rounded-md border border-border bg-surface py-2 pr-3 pl-9 text-sm outline-none focus:border-accent"
+            [value]="filters().query"
+            (input)="onSearch($any($event.target).value)"
+          />
+        </div>
+
+        <button
+          type="button"
+          class="rounded-md border border-border bg-surface px-3 py-2 text-sm lg:hidden"
+          [attr.aria-expanded]="filtersOpen()"
+          (click)="filtersOpen.set(!filtersOpen())"
+        >
+          Фильтры @if (activeFilterCount()) {<span class="text-accent">· {{ activeFilterCount() }}</span>}
+        </button>
+
+        <label class="sr-only" for="catalog-sort">Сортировка</label>
+        <select
+          id="catalog-sort"
+          class="rounded-md border border-border bg-surface px-3 py-2 text-sm outline-none focus:border-accent"
+          [value]="sort()"
+          (change)="onSortChange($any($event.target).value)"
+        >
+          @for (option of sortOptions; track option.value) {
+            <option [value]="option.value">{{ option.label }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="mt-4 flex flex-wrap items-center justify-between gap-2 text-sm text-muted">
+        <p aria-live="polite">
+          @if (!catalog.isLoading()) {
+            Найдено: <span class="font-medium text-text">{{ results().length }}</span>
+          }
+        </p>
+        @if (activeFilterCount()) {
+          <button type="button" class="text-accent hover:underline" (click)="resetAll()">
+            Сбросить фильтры ({{ activeFilterCount() }})
+          </button>
+        }
+      </div>
+
+      @if (catalog.error()) {
+        <div class="mt-6 rounded-lg border border-border bg-surface p-8 text-center">
+          <p class="font-medium">Не удалось загрузить каталог</p>
+          <p class="mt-1 text-sm text-muted">Проверьте соединение и попробуйте снова.</p>
+          <button
+            type="button"
+            class="mt-4 rounded-md bg-accent px-4 py-2 text-sm font-semibold text-accent-ink hover:opacity-90"
+            (click)="catalog.reload()"
+          >Повторить</button>
+        </div>
+      } @else if (catalog.isLoading()) {
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          @for (placeholder of [1, 2, 3, 4, 5, 6]; track placeholder) {
+            <div class="overflow-hidden rounded-lg border border-border bg-surface">
+              <div class="aspect-4/3 animate-pulse bg-surface-2"></div>
+              <div class="space-y-3 p-4">
+                <div class="h-3 w-16 animate-pulse rounded bg-surface-2"></div>
+                <div class="h-4 w-3/4 animate-pulse rounded bg-surface-2"></div>
+                <div class="h-3 w-1/2 animate-pulse rounded bg-surface-2"></div>
+                <div class="h-6 w-24 animate-pulse rounded bg-surface-2"></div>
+              </div>
+            </div>
+          }
+        </div>
+      } @else if (!results().length) {
+        <div class="mt-6 rounded-lg border border-dashed border-border bg-surface p-10 text-center">
+          <p class="font-medium">Ничего не найдено</p>
+          <p class="mt-1 text-sm text-muted">
+            Попробуйте изменить запрос или снять часть фильтров.
+          </p>
+          <button
+            type="button"
+            class="mt-4 rounded-md border border-border px-4 py-2 text-sm hover:bg-surface-2"
+            (click)="resetAll()"
+          >Сбросить фильтры</button>
+        </div>
+      } @else {
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          @for (product of results(); track product.id; let index = $index) {
+            <app-product-card [product]="product" [priority]="index < 3" />
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>

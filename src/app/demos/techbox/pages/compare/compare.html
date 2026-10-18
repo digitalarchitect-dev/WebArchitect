@@ -1,0 +1,130 @@
+@if (!products().length) {
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+    <div class="mx-auto max-w-lg rounded-lg border border-dashed border-border bg-surface p-10 text-center">
+      <svg class="mx-auto text-muted" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <path d="M4 6h16M4 12h10M4 18h7" />
+      </svg>
+      <p class="mt-3 text-lg font-semibold">Список сравнения пуст</p>
+      <p class="mt-2 text-sm text-muted">
+        Добавьте до четырёх товаров кнопкой «Сравнить» — они появятся здесь и в панели внизу страницы.
+      </p>
+      <a
+        routerLink="/projects/techbox"
+        class="mt-5 inline-block rounded-md bg-accent px-4 py-2 text-sm font-semibold text-accent-ink hover:opacity-90"
+      >Перейти в каталог</a>
+    </div>
+  </div>
+} @else {
+  <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6">
+    <div class="flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <h1 class="text-2xl font-bold tracking-tight">Сравнение товаров</h1>
+        <p class="mt-1 text-sm text-muted">
+          Выбрано {{ products().length }} из {{ limit }}. Характеристики, которые различаются, подсвечены.
+        </p>
+      </div>
+      <button
+        type="button"
+        class="rounded-md border border-border px-4 py-2 text-sm hover:bg-surface-2"
+        (click)="clear()"
+      >Очистить список</button>
+    </div>
+
+    <div class="mt-5 overflow-x-auto rounded-lg border border-border bg-surface">
+      <table class="w-full min-w-3xl border-collapse text-sm">
+        <caption class="sr-only">Сравнение характеристик выбранных товаров</caption>
+        <thead>
+          <tr class="border-b border-border">
+            <th scope="col" class="sticky left-0 z-10 w-36 bg-surface p-4 text-left align-bottom text-xs font-medium tracking-wide text-muted uppercase">
+              Товар
+            </th>
+            @for (product of products(); track product.id) {
+              <th scope="col" class="w-52 border-l border-border p-4 text-left align-top font-normal">
+                @if (product.photos.length) {
+                  <img
+                    [src]="product.photos[0]"
+                    [attr.alt]="product.brand + ' ' + product.name"
+                    width="200" height="150"
+                    class="mb-3 h-28 w-full rounded-md bg-surface-2 object-contain"
+                  />
+                }
+                <p class="text-xs tracking-wide text-muted uppercase">{{ product.brand }}</p>
+                <a
+                  [routerLink]="['/projects/techbox/product', product.id]"
+                  class="mt-0.5 block leading-snug font-semibold hover:text-accent"
+                >{{ product.name }}</a>
+                <button
+                  type="button"
+                  class="mt-3 text-xs text-muted hover:text-red-600"
+                  (click)="compare.remove(product.id)"
+                >Убрать</button>
+              </th>
+            }
+            @if (emptySlots() > 0) {
+              @for (slot of [].constructor(emptySlots()); track $index) {
+                <th scope="col" class="w-52 border-l border-border p-4 text-left align-middle font-normal">
+                  <a
+                    routerLink="/projects/techbox"
+                    class="inline-block rounded-md border border-dashed border-border px-3 py-2 text-xs text-muted hover:bg-surface-2 hover:text-text"
+                  >+ Добавить товар</a>
+                </th>
+              }
+            }
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-border">
+            <th scope="row" class="sticky left-0 z-10 bg-surface p-4 text-left font-normal text-muted">Цена</th>
+            @for (product of products(); track product.id) {
+              <td class="border-l border-border p-4">
+                <span class="font-semibold">{{ formatRub(product.price) }}</span>
+                @if (product.oldPrice) {
+                  <span class="mt-0.5 block text-xs text-muted line-through">{{ formatRub(product.oldPrice) }}</span>
+                }
+              </td>
+            }
+          </tr>
+          <tr class="border-b border-border">
+            <th scope="row" class="sticky left-0 z-10 bg-surface p-4 text-left font-normal text-muted">Рейтинг</th>
+            @for (product of products(); track product.id) {
+              <td class="border-l border-border p-4">
+                {{ formatRating(product.rating) }} · {{ product.reviews }} отзывов
+              </td>
+            }
+          </tr>
+          <tr class="border-b border-border">
+            <th scope="row" class="sticky left-0 z-10 bg-surface p-4 text-left font-normal text-muted">Наличие</th>
+            @for (product of products(); track product.id) {
+              <td class="border-l border-border p-4">
+                @if (product.stock > 0) {
+                  В наличии · {{ product.stock }} шт.
+                } @else {
+                  <span class="text-red-600">Нет в наличии</span>
+                }
+              </td>
+            }
+          </tr>
+
+          @for (key of rows(); track key) {
+            <tr class="border-b border-border last:border-0" [class.compare-diff]="differs(key)">
+              <th scope="row" class="sticky left-0 z-10 p-4 text-left font-normal text-muted">
+                {{ key }}
+              </th>
+              @for (product of products(); track product.id) {
+                <td class="border-l border-border p-4" [class.text-muted]="!product.specs[key]">
+                  {{ value(product, key) }}
+                </td>
+              }
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <p class="mt-3 text-xs text-muted">
+      Подсвеченные строки — характеристики, по которым товары отличаются
+      ({{ differencesOnly().length }} из {{ rows().length }}).
+      Демо-данные: значения характеристик вымышлены.
+    </p>
+  </div>
+}

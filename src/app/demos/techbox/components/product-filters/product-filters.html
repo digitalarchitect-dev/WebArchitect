@@ -1,0 +1,101 @@
+<div class="space-y-6">
+  <div class="flex items-baseline justify-between">
+    <h2 class="text-sm font-semibold tracking-wide uppercase">Фильтры</h2>
+    @if (activeCount()) {
+      <button type="button" class="text-xs text-accent hover:underline" (click)="reset()">
+        Сбросить ({{ activeCount() }})
+      </button>
+    }
+  </div>
+
+  <p class="text-sm text-muted">Найдено товаров: <span class="font-medium text-text">{{ resultCount() }}</span></p>
+
+  <fieldset>
+    <legend class="mb-2 text-sm font-semibold">Категории</legend>
+    <div class="space-y-1.5">
+      @for (category of categories(); track category) {
+        <label class="flex cursor-pointer items-center gap-2 text-sm text-muted hover:text-text">
+          <input
+            type="checkbox"
+            class="h-4 w-4 accent-[var(--c-accent)]"
+            [checked]="filters().categories.includes(category)"
+            (change)="toggleCategory(category)"
+          />
+          {{ category }}
+        </label>
+      }
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend class="mb-2 text-sm font-semibold">Бренд</legend>
+    <div class="max-h-56 space-y-1.5 overflow-y-auto pr-1">
+      @for (brand of brands(); track brand) {
+        <label class="flex cursor-pointer items-center gap-2 text-sm text-muted hover:text-text">
+          <input
+            type="checkbox"
+            class="h-4 w-4 accent-[var(--c-accent)]"
+            [checked]="filters().brands.includes(brand)"
+            (change)="toggleBrand(brand)"
+          />
+          {{ brand }}
+        </label>
+      }
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend class="mb-2 text-sm font-semibold">Цена, ₽</legend>
+    <div class="flex items-center gap-2">
+      <label class="sr-only" for="price-min">Цена от</label>
+      <input
+        id="price-min"
+        type="number"
+        min="0"
+        inputmode="numeric"
+        placeholder="от"
+        class="w-full rounded-md border border-border bg-bg px-2.5 py-2 text-sm outline-none focus:border-accent"
+        [value]="filters().priceMin ?? ''"
+        (change)="setPrice('priceMin', $any($event.target).value)"
+      />
+      <span class="text-muted">—</span>
+      <label class="sr-only" for="price-max">Цена до</label>
+      <input
+        id="price-max"
+        type="number"
+        min="0"
+        inputmode="numeric"
+        placeholder="до"
+        class="w-full rounded-md border border-border bg-bg px-2.5 py-2 text-sm outline-none focus:border-accent"
+        [value]="filters().priceMax ?? ''"
+        (change)="setPrice('priceMax', $any($event.target).value)"
+      />
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend class="mb-2 text-sm font-semibold">Рейтинг</legend>
+    <label class="sr-only" for="rating-filter">Минимальный рейтинг</label>
+    <select
+      id="rating-filter"
+      class="w-full rounded-md border border-border bg-bg px-2.5 py-2 text-sm outline-none focus:border-accent"
+      [value]="filters().minRating ?? ''"
+      (change)="setRating($any($event.target).value)"
+    >
+      <option value="">Любой</option>
+      @for (option of ratingOptions; track option.value) {
+        <option [value]="option.value">{{ option.label }}</option>
+      }
+    </select>
+  </fieldset>
+
+  <label class="flex cursor-pointer items-center gap-2 text-sm">
+    <input
+      type="checkbox"
+      class="h-4 w-4 accent-[var(--c-accent)]"
+      [checked]="filters().inStockOnly"
+      (change)="setInStock($any($event.target).checked)"
+    />
+    Только в наличии
+  </label>
+</div>

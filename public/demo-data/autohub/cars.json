@@ -1,0 +1,624 @@
+[
+  {
+    "id": "toyota-camry-2021",
+    "brand": "Toyota",
+    "model": "Camry",
+    "year": 2021,
+    "price": 2150000,
+    "mileage": 48000,
+    "fuel": "Бензин",
+    "transmission": "Автомат",
+    "body": "Седан",
+    "power": 249,
+    "engine": "2.5 л",
+    "color": "#1f2937",
+    "colorName": "Графит",
+    "features": [
+      "Климат-контроль",
+      "Камера заднего вида",
+      "Подогрев сидений"
+    ],
+    "description": "Один владелец, сервисная история у официального дилера. Без ДТП, все ТО по регламенту.",
+    "photos": [
+      "/assets/cars/toyota-camry-2021-2.webp",
+      "/assets/cars/toyota-camry-2021-3.webp"
+    ]
+  },
+  {
+    "id": "bmw-x5-2020",
+    "brand": "BMW",
+    "model": "X5",
+    "year": 2020,
+    "price": 5490000,
+    "mileage": 61000,
+    "fuel": "Дизель",
+    "transmission": "Автомат",
+    "body": "Внедорожник",
+    "power": 286,
+    "engine": "3.0 л",
+    "color": "#f8fafc",
+    "colorName": "Альпин белый",
+    "features": [
+      "Полный привод",
+      "Панорамная крыша",
+      "Адаптивный круиз-контроль"
+    ],
+    "description": "Полная комплектация M Sport. Новая резина, зимний комплект на дисках.",
+    "photos": [
+      "/assets/cars/bmw-x5-2020-1.webp",
+      "/assets/cars/bmw-x5-2020-2.webp",
+      "/assets/cars/bmw-x5-2020-3.webp"
+    ]
+  },
+  {
+    "id": "kia-sportage-2022",
+    "brand": "Kia",
+    "model": "Sportage",
+    "year": 2022,
+    "price": 2790000,
+    "mileage": 27000,
+    "fuel": "Бензин",
+    "transmission": "Автомат",
+    "body": "Внедорожник",
+    "power": 180,
+    "engine": "2.0 л",
+    "color": "#b91c1c",
+    "colorName": "Красный",
+    "features": [
+      "Полный привод",
+      "Подогрев руля",
+      "Беспроводная зарядка"
+    ],
+    "description": "Авто в отличном состоянии, владелец один. Лакокрасочное покрытие без сколов.",
+    "photos": [
+      "/assets/cars/kia-sportage-2022-1.webp",
+      "/assets/cars/kia-sportage-2022-2.webp",
+      "/assets/cars/kia-sportage-2022-3.webp"
+    ]
+  },
+  {
+    "id": "volkswagen-golf-2019",
+    "brand": "Volkswagen",
+    "model": "Golf",
+    "year": 2019,
+    "price": 1390000,
+    "mileage": 85000,
+    "fuel": "Бензин",
+    "transmission": "Механика",
+    "body": "Хетчбек",
+    "power": 150,
+    "engine": "1.4 л",
+    "color": "#0f766e",
+    "colorName": "Бирюзовый",
+    "features": [
+      "Парктроник",
+      "Литые диски",
+      "Мультируль"
+    ],
+    "description": "Экономичный и практичный хетчбек для города. Заменены колодки и масло.",
+    "photos": [
+      "/assets/cars/volkswagen-golf-2019-1.webp",
+      "/assets/cars/volkswagen-golf-2019-2.webp",
+      "/assets/cars/volkswagen-golf-2019-3.webp"
+    ]
+  },
+  {
+    "id": "hyundai-solaris-2018",
+    "brand": "Hyundai",
+    "model": "Solaris",
+    "year": 2018,
+    "price": 920000,
+    "mileage": 112000,
+    "fuel": "Бензин",
+    "transmission": "Автомат",
+    "body": "Седан",
+    "power": 123,
+    "engine": "1.6 л",
+    "color": "#e2e8f0",
+    "colorName": "Серебристый",
+    "features": [
+      "Кондиционер",
+      "Мультимедиа",
+      "Задние датчики"
+    ],
+    "description": "Надёжный городской автомобиль. Чистый салон, новый аккумулятор.",
+    "photos": [
+      "/assets/cars/hyundai-solaris-2018-1.webp",
+      "/assets/cars/hyundai-solaris-2018-2.webp",
+      "/assets/cars/hyundai-solaris-2018-3.webp"
+    ]
+  },
+  {
+    "id": "mercedes-e-class-2020",
+    "brand": "Mercedes-Benz",
+    "model": "E-Class",
+    "year": 2020,
+    "price": 4190000,
+    "mileage": 54000,
+    "fuel": "Бензин",
+    "transmission": "Автомат",
+    "body": "Седан",
+    "power": 197,
+    "engine": "2.0 л",
+    "color": "#111827",
+    "colorName": "Обсидиан",
+    "features": [
+      "Пакет AMG",
+      "Кожаный салон",
+      "Ассистент парковки"
+    ],
+    "description": "Комфортный бизнес-седан. Обслуживание только в сервисе марки.",
+    "photos": [
+      "/assets/cars/mercedes-e-class-2020-1.webp",
+      "/assets/cars/mercedes-e-class-2020-2.webp",
+      "/assets/cars/mercedes-e-class-2020-3.webp"
+    ]
+  },
+  {
+    "id": "skoda-octavia-2023",
+    "brand": "Skoda",
+    "model": "Octavia",
+    "year": 2023,
+    "price": 2650000,
+    "mileage": 14000,
+    "fuel": "Гибрид",
+    "transmission": "Автомат",
+    "body": "Универсал",
+    "power": 204,
+    "engine": "1.4 л + электро",
+    "color": "#1e3a8a",
+    "colorName": "Синий",
+    "features": [
+      "Просторный багажник",
+      "Адаптивная подвеска",
+      "LED-фары"
+    ],
+    "description": "Практичный универсал с гибридной установкой. Гарантия производителя до 2026 года.",
+    "photos": [
+      "/assets/cars/skoda-octavia-2023-1.webp",
+      "/assets/cars/skoda-octavia-2023-2.webp",
+      "/assets/cars/skoda-octavia-2023-3.webp"
+    ]
+  },
+  {
+    "id": "mazda-cx5-2021",
+    "brand": "Mazda",
+    "model": "CX-5",
+    "year": 2021,
+    "price": 2380000,
+    "mileage": 39000,
+    "fuel": "Бензин",
+    "transmission": "Автомат",
+    "body": "Внедорожник",
+    "power": 194,
+    "engine": "2.5 л",
+    "color": "#7c2d12",
+    "colorName": "Бордовый",
+    "features": [
+      "Полный привод",
+      "Система Head-Up Display",
+      "Кожа"
+    ],
+    "description": "Стильный кроссовер с отличной управляемостью. Один владелец.",
+    "photos": [
+      "/assets/cars/mazda-cx5-2021-1.webp",
+      "/assets/cars/mazda-cx5-2021-2.webp",
+      "/assets/cars/mazda-cx5-2021-3.webp"
+    ]
+  },
+  {
+    "id": "audi-a4-2019",
+    "brand": "Audi",
+    "model": "A4",
+    "year": 2019,
+    "price": 2290000,
+    "mileage": 76000,
+    "fuel": "Бензин",
+    "transmission": "Автомат",
+    "body": "Седан",
+    "power": 190,
+    "engine": "2.0 л",
+    "color": "#475569",
+    "colorName": "Титан",
+    "features": [
+      "Quattro",
+      "Виртуальная панель",
+      "Подогрев сидений"
+    ],
+    "description": "Полный привод, спокойный ход. Есть мелкие следы эксплуатации на порогах.",
+    "photos": [
+      "/assets/cars/audi-a4-2019-1.webp",
+      "/assets/cars/audi-a4-2019-2.webp",
+      "/assets/cars/audi-a4-2019-3.webp"
+    ]
+  },
+  {
+    "id": "lexus-rx-2020",
+    "brand": "Lexus",
+    "model": "RX",
+    "year": 2020,
+    "price": 4650000,
+    "mileage": 58000,
+    "fuel": "Гибрид",
+    "transmission": "Автомат",
+    "body": "Внедорожник",
+    "power": 313,
+    "engine": "3.5 л + электро",
+    "color": "#d6d3d1",
+    "colorName": "Жемчужный",
+    "features": [
+      "Полный привод",
+      "Вентиляция сидений",
+      "Мультимедиа 12\""
+    ],
+    "description": "Тихий гибридный внедорожник. Комплектация Luxury, полная история обслуживания.",
+    "photos": [
+      "/assets/cars/lexus-rx-2020-1.webp",
+      "/assets/cars/lexus-rx-2020-2.webp",
+      "/assets/cars/lexus-rx-2020-3.webp"
+    ]
+  },
+  {
+    "id": "tesla-model3-2022",
+    "brand": "Tesla",
+    "model": "Model 3",
+    "year": 2022,
+    "price": 3490000,
+    "mileage": 31000,
+    "fuel": "Электро",
+    "transmission": "Автомат",
+    "body": "Седан",
+    "power": 283,
+    "engine": "Электро",
+    "color": "#e5e7eb",
+    "colorName": "Белый перламутр",
+    "features": [
+      "Автопилот",
+      "Запас хода 500 км",
+      "Стеклянная крыша"
+    ],
+    "description": "Электрический седан с динамикой и низкими расходами на энергию. Без аварий.",
+    "photos": [
+      "/assets/cars/tesla-model3-2022-1.webp",
+      "/assets/cars/tesla-model3-2022-2.webp"
+    ]
+  },
+  {
+    "id": "volvo-xc60-2021",
+    "brand": "Volvo",
+    "model": "XC60",
+    "year": 2021,
+    "price": 3750000,
+    "mileage": 46000,
+    "fuel": "Гибрид",
+    "transmission": "Автомат",
+    "body": "Внедорожник",
+    "power": 262,
+    "engine": "2.0 л + электро",
+    "color": "#365314",
+    "colorName": "Оливковый",
+    "features": [
+      "Полный привод",
+      "Система безопасности City Safety",
+      "Пневмоподвеска"
+    ],
+    "description": "Безопасный семейный кроссовер. Кожаный салон, климат во всех зонах.",
+    "photos": [
+      "/assets/cars/volvo-xc60-2021-1.webp",
+      "/assets/cars/volvo-xc60-2021-2.webp",
+      "/assets/cars/volvo-xc60-2021-3.webp"
+    ]
+  },
+  {
+    "id": "toyota-rav4-2020",
+    "brand": "Toyota",
+    "model": "RAV4",
+    "year": 2020,
+    "price": 2690000,
+    "mileage": 69000,
+    "fuel": "Бензин",
+    "transmission": "Автомат",
+    "body": "Внедорожник",
+    "power": 175,
+    "engine": "2.0 л",
+    "color": "#92400e",
+    "colorName": "Медный",
+    "features": [
+      "Полный привод",
+      "Камера кругового обзора",
+      "Адаптивный круиз"
+    ],
+    "description": "Проходимый кроссовер для города и загородных поездок. Новые шины.",
+    "photos": [
+      "/assets/cars/toyota-rav4-2020-1.webp",
+      "/assets/cars/toyota-rav4-2020-2.webp",
+      "/assets/cars/toyota-rav4-2020-3.webp"
+    ]
+  },
+  {
+    "id": "volkswagen-passat-2017",
+    "brand": "Volkswagen",
+    "model": "Passat",
+    "year": 2017,
+    "price": 1290000,
+    "mileage": 124000,
+    "fuel": "Дизель",
+    "transmission": "Автомат",
+    "body": "Универсал",
+    "power": 150,
+    "engine": "2.0 л",
+    "color": "#334155",
+    "colorName": "Тёмно-серый",
+    "features": [
+      "Просторный багажник",
+      "Климат-контроль",
+      "Парктроник"
+    ],
+    "description": "Вместительный универсал для семьи. Требуется замена стоек, цена с учётом торга.",
+    "photos": [
+      "/assets/cars/volkswagen-passat-2017-1.webp",
+      "/assets/cars/volkswagen-passat-2017-2.webp",
+      "/assets/cars/volkswagen-passat-2017-3.webp"
+    ]
+  },
+  {
+    "id": "kia-k5-2021",
+    "brand": "Kia",
+    "model": "K5",
+    "year": 2021,
+    "price": 2050000,
+    "mileage": 52000,
+    "fuel": "Бензин",
+    "transmission": "Автомат",
+    "body": "Седан",
+    "power": 180,
+    "engine": "2.0 л",
+    "color": "#f97316",
+    "colorName": "Оранжевый",
+    "features": [
+      "Панорамная крыша",
+      "Подогрев руля",
+      "Камера 360"
+    ],
+    "description": "Яркий седан с современной начинкой. Один владелец, без крашеных деталей.",
+    "photos": [
+      "/assets/cars/kia-k5-2021-1.webp",
+      "/assets/cars/kia-k5-2021-2.webp",
+      "/assets/cars/kia-k5-2021-3.webp"
+    ]
+  },
+  {
+    "id": "hyundai-tucson-2022",
+    "brand": "Hyundai",
+    "model": "Tucson",
+    "year": 2022,
+    "price": 2950000,
+    "mileage": 33000,
+    "fuel": "Гибрид",
+    "transmission": "Автомат",
+    "body": "Внедорожник",
+    "power": 230,
+    "engine": "1.6 л + электро",
+    "color": "#0ea5e9",
+    "colorName": "Голубой",
+    "features": [
+      "Полный привод",
+      "Цифровой ключ",
+      "Ассистент полосы"
+    ],
+    "description": "Гибридный кроссовер с низким расходом топлива. Официальный дилер, гарантия.",
+    "photos": [
+      "/assets/cars/hyundai-tucson-2022-1.webp",
+      "/assets/cars/hyundai-tucson-2022-2.webp",
+      "/assets/cars/hyundai-tucson-2022-3.webp"
+    ]
+  },
+  {
+    "id": "mazda-3-2018",
+    "brand": "Mazda",
+    "model": "3",
+    "year": 2018,
+    "price": 1150000,
+    "mileage": 98000,
+    "fuel": "Бензин",
+    "transmission": "Механика",
+    "body": "Хетчбек",
+    "power": 150,
+    "engine": "2.0 л",
+    "color": "#be123c",
+    "colorName": "Вишнёвый",
+    "features": [
+      "Адаптивные фары",
+      "Кожа",
+      "Подогрев сидений"
+    ],
+    "description": "Динамичный хетчбек с механической коробкой. Замена масла и фильтров проведена.",
+    "photos": [
+      "/assets/cars/mazda-3-2018-1.webp",
+      "/assets/cars/mazda-3-2018-2.webp",
+      "/assets/cars/mazda-3-2018-3.webp"
+    ]
+  },
+  {
+    "id": "bmw-3-touring-2019",
+    "brand": "BMW",
+    "model": "3 Series Touring",
+    "year": 2019,
+    "price": 2850000,
+    "mileage": 72000,
+    "fuel": "Дизель",
+    "transmission": "Автомат",
+    "body": "Универсал",
+    "power": 190,
+    "engine": "2.0 л",
+    "color": "#1d4ed8",
+    "colorName": "Саксонский синий",
+    "features": [
+      "Задний привод",
+      "Прогрессивное рулевое",
+      "Heads-Up Display"
+    ],
+    "description": "Спортивный универсал на заднем приводе. Идеален для дальних поездок.",
+    "photos": [
+      "/assets/cars/bmw-3-touring-2019-1.webp",
+      "/assets/cars/bmw-3-touring-2019-2.webp",
+      "/assets/cars/bmw-3-touring-2019-3.webp"
+    ]
+  },
+  {
+    "id": "skoda-kodiaq-2020",
+    "brand": "Skoda",
+    "model": "Kodiaq",
+    "year": 2020,
+    "price": 2470000,
+    "mileage": 81000,
+    "fuel": "Бензин",
+    "transmission": "Автомат",
+    "body": "Внедорожник",
+    "power": 180,
+    "engine": "2.0 л",
+    "color": "#4b5563",
+    "colorName": "Антрацит",
+    "features": [
+      "7 мест",
+      "Полный привод",
+      "Подогрев сидений"
+    ],
+    "description": "Семейный кроссовер с тремя рядами сидений. Чистый салон, без подкрасов.",
+    "photos": [
+      "/assets/cars/skoda-kodiaq-2020-1.webp",
+      "/assets/cars/skoda-kodiaq-2020-2.webp",
+      "/assets/cars/skoda-kodiaq-2020-3.webp"
+    ]
+  },
+  {
+    "id": "lexus-es-2019",
+    "brand": "Lexus",
+    "model": "ES",
+    "year": 2019,
+    "price": 2990000,
+    "mileage": 65000,
+    "fuel": "Гибрид",
+    "transmission": "Автомат",
+    "body": "Седан",
+    "power": 215,
+    "engine": "2.5 л + электро",
+    "color": "#0f172a",
+    "colorName": "Черный",
+    "features": [
+      "Бесшумный салон",
+      "Мультимедиа 10\"",
+      "Камера 360"
+    ],
+    "description": "Комфортный гибридный седан бизнес-класса. Полная сервисная история Lexus.",
+    "photos": [
+      "/assets/cars/lexus-es-2019-1.webp",
+      "/assets/cars/lexus-es-2019-2.webp",
+      "/assets/cars/lexus-es-2019-3.webp"
+    ]
+  },
+  {
+    "id": "tesla-modely-2023",
+    "brand": "Tesla",
+    "model": "Model Y",
+    "year": 2023,
+    "price": 4290000,
+    "mileage": 17000,
+    "fuel": "Электро",
+    "transmission": "Автомат",
+    "body": "Внедорожник",
+    "power": 351,
+    "engine": "Электро",
+    "color": "#dc2626",
+    "colorName": "Ярко-красный",
+    "features": [
+      "Полный привод",
+      "Запас хода 480 км",
+      "Панорамная крыша"
+    ],
+    "description": "Электрический кроссовер с большим багажником. Гарантия батареи до 2031 года.",
+    "photos": [
+      "/assets/cars/tesla-modely-2023-1.webp",
+      "/assets/cars/tesla-modely-2023-2.webp",
+      "/assets/cars/tesla-modely-2023-3.webp"
+    ]
+  },
+  {
+    "id": "audi-q3-2021",
+    "brand": "Audi",
+    "model": "Q3",
+    "year": 2021,
+    "price": 2640000,
+    "mileage": 44000,
+    "fuel": "Бензин",
+    "transmission": "Автомат",
+    "body": "Внедорожник",
+    "power": 150,
+    "engine": "1.4 л",
+    "color": "#a3a3a3",
+    "colorName": "Серый Нарди",
+    "features": [
+      "Полный привод",
+      "Цифровая приборная панель",
+      "Подогрев сидений"
+    ],
+    "description": "Компактный премиальный кроссовер. Один владелец, ухоженный салон.",
+    "photos": [
+      "/assets/cars/audi-q3-2021-1.webp",
+      "/assets/cars/audi-q3-2021-2.webp",
+      "/assets/cars/audi-q3-2021-3.webp"
+    ]
+  },
+  {
+    "id": "volkswagen-polo-2016",
+    "brand": "Volkswagen",
+    "model": "Polo",
+    "year": 2016,
+    "price": 720000,
+    "mileage": 134000,
+    "fuel": "Бензин",
+    "transmission": "Механика",
+    "body": "Седан",
+    "power": 105,
+    "engine": "1.6 л",
+    "color": "#fde047",
+    "colorName": "Жёлтый",
+    "features": [
+      "Кондиционер",
+      "Электростеклоподъёмники",
+      "ABS"
+    ],
+    "description": "Бюджетный и экономичный седан. Подходит для первого автомобиля.",
+    "photos": [
+      "/assets/cars/volkswagen-polo-2016-1.webp",
+      "/assets/cars/volkswagen-polo-2016-2.webp",
+      "/assets/cars/volkswagen-polo-2016-3.webp"
+    ]
+  },
+  {
+    "id": "mercedes-glc-2022",
+    "brand": "Mercedes-Benz",
+    "model": "GLC",
+    "year": 2022,
+    "price": 5290000,
+    "mileage": 29000,
+    "fuel": "Дизель",
+    "transmission": "Автомат",
+    "body": "Внедорожник",
+    "power": 245,
+    "engine": "2.0 л",
+    "color": "#262626",
+    "colorName": "Чёрный",
+    "features": [
+      "Полный привод 4MATIC",
+      "Кожаный салон",
+      "Панорамная крыша"
+    ],
+    "description": "Премиальный кроссовер с полным приводом. Комплектация AMG Line.",
+    "photos": [
+      "/assets/cars/mercedes-glc-2022-1.webp",
+      "/assets/cars/mercedes-glc-2022-2.webp",
+      "/assets/cars/mercedes-glc-2022-3.webp"
+    ]
+  }
+]

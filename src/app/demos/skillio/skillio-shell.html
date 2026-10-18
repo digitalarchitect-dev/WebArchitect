@@ -1,0 +1,23 @@
+<header class="sticky top-0 z-40 border-b border-border/80 bg-bg/90 backdrop-blur">
+  <div class="mx-auto flex min-h-18 max-w-7xl flex-wrap items-center gap-4 px-4 py-3 sm:px-6">
+    <a routerLink="/projects/skillio" class="flex items-center gap-3 text-xl font-black tracking-tight">
+      <span class="grid size-10 place-items-center rounded-2xl bg-accent text-accent-ink shadow-[0_0_28px_rgba(167,139,250,0.24)]" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4h10l-6 7h6l-10 9 3-8H5z" /></svg>
+      </span>
+      <span>skillio<span class="text-accent">.</span></span>
+    </a>
+    <form class="order-3 flex w-full flex-1 gap-2 sm:order-none sm:ml-8 sm:max-w-xl" (ngSubmit)="search()">
+      <label class="sr-only" for="skillio-search">Найти специалиста или навык</label>
+      <div class="relative flex-1"><span class="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 text-muted">⌕</span><input id="skillio-search" name="q" type="search" placeholder="Найти специалиста или навык" class="w-full rounded-xl border border-border bg-surface py-2.5 pr-3 pl-9 text-sm outline-none transition focus:border-accent" [ngModel]="query()" (ngModelChange)="query.set($event)" /></div>
+      <button class="rounded-xl bg-accent px-4 text-sm font-semibold text-accent-ink transition hover:brightness-110" type="submit">Найти</button>
+    </form>
+    <nav class="ml-auto flex items-center gap-1 text-sm" aria-label="Разделы Skillio">
+      <button type="button" class="grid size-9 place-items-center rounded-lg border border-border text-base transition hover:border-accent hover:text-accent" [attr.aria-label]="darkMode() ? 'Включить светлую тему' : 'Включить тёмную тему'" [attr.title]="darkMode() ? 'Светлая тема' : 'Тёмная тема'" (click)="toggleTheme()"><span aria-hidden="true">{{ darkMode() ? '☼' : '☾' }}</span></button>
+      <a routerLink="/projects/skillio" routerLinkActive="bg-surface-2 text-text" [routerLinkActiveOptions]="{ exact: true }" class="hidden rounded-lg px-3 py-2 text-muted hover:text-text sm:block">Каталог</a>
+      <a routerLink="/projects/skillio/favorites" routerLinkActive="bg-surface-2 text-text" class="flex items-center gap-1 rounded-lg px-3 py-2 text-muted hover:text-text"><span aria-hidden="true">♡</span><span class="hidden sm:inline">Избранное</span><span class="rounded-full bg-surface-2 px-1.5 text-xs">{{ store.favorites().length }}</span></a>
+      <a routerLink="/projects" class="ml-2 hidden rounded-lg border border-border px-3 py-2 text-muted hover:text-text lg:block">← Портфолио</a>
+    </nav>
+  </div>
+</header>
+<main id="main"><router-outlet /></main>
+<footer class="mt-20 border-t border-border bg-surface"><div class="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-6 text-xs text-muted sm:flex-row sm:items-center sm:justify-between sm:px-6"><p>Skillio — демо-маркетплейс специалистов. Все профили и отзывы вымышлены.</p><a routerLink="/projects" class="hover:text-text">Вернуться в портфолио →</a></div></footer>

@@ -1,0 +1,59 @@
+<article class="group flex flex-col overflow-hidden rounded-lg border border-border bg-surface transition-colors hover:border-accent/70">
+  <a
+    [routerLink]="['/projects/autohub/cars', car().id]"
+    class="relative block aspect-[4/3] overflow-hidden bg-surface-2"
+    [attr.aria-label]="'Открыть: ' + car().brand + ' ' + car().model"
+  >
+    @if (car().photos.length) {
+      <img
+        [src]="car().photos[0]"
+        [alt]="car().brand + ' ' + car().model + ', ' + car().year"
+        width="1280"
+        height="960"
+        [loading]="priority() ? 'eager' : 'lazy'"
+        [attr.fetchpriority]="priority() ? 'high' : null"
+        decoding="async"
+        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+      />
+    } @else {
+      <span class="grid h-full w-full place-items-center px-4 text-center text-xs font-semibold uppercase tracking-widest text-muted">
+        {{ car().brand }} {{ car().model }}<br />фото скоро
+      </span>
+    }
+    <span class="absolute left-3 top-3 rounded bg-bg/85 px-2 py-0.5 text-xs font-medium tabular-nums text-text">
+      {{ car().year }}
+    </span>
+  </a>
+
+  <div class="flex flex-1 flex-col p-4">
+    <div class="flex items-start justify-between gap-3">
+      <h3 class="text-base font-semibold leading-snug">
+        <a [routerLink]="['/projects/autohub/cars', car().id]" class="hover:text-accent">
+          {{ car().brand }} {{ car().model }}
+        </a>
+      </h3>
+      <button
+        type="button"
+        class="-mr-1 -mt-1 grid h-8 w-8 shrink-0 place-items-center rounded-md transition-colors hover:bg-surface-2"
+        [class.text-accent]="favorite()"
+        [class.text-muted]="!favorite()"
+        [attr.aria-pressed]="favorite()"
+        [attr.aria-label]="(favorite() ? 'Убрать из избранного: ' : 'В избранное: ') + car().brand + ' ' + car().model"
+        (click)="favoriteToggle.emit(car())"
+      >
+        <svg aria-hidden="true" width="17" height="17" viewBox="0 0 24 24" [attr.fill]="favorite() ? 'currentColor' : 'none'" stroke="currentColor" stroke-width="2" stroke-linejoin="round">
+          <path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z" />
+        </svg>
+      </button>
+    </div>
+
+    <p class="mt-1.5 text-sm text-muted">
+      {{ car().engine }} · {{ car().transmission }} · {{ car().fuel }}
+    </p>
+    <p class="mt-1 text-sm tabular-nums text-muted">
+      {{ formatNumber(car().mileage) }} км · {{ car().body }}
+    </p>
+
+    <p class="mt-auto pt-4 text-xl font-bold tabular-nums text-accent">{{ formatRub(car().price) }}</p>
+  </div>
+</article>
